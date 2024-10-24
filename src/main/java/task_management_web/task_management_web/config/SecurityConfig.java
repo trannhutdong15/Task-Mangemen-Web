@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import task_management_web.task_management_web.exception.CustomAccessDeniedHandler;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -15,36 +17,36 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Tắt CSRF
+                .csrf(AbstractHttpConfigurer::disable) // Turn off CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login").permitAll() // Các trang công khai
-                        .requestMatchers("/admin/**").hasRole("Admin") // Chỉ cho phép Admin truy cập
-                        .requestMatchers("/teamleader/**").hasAnyRole("TeamLeader", "Admin") // TeamLeader và Admin truy cập
-                        .requestMatchers("/staff/**").hasAnyRole("Staff", "TeamLeader", "Admin") // Staff, TeamLeader và Admin truy cập
+                        .requestMatchers("/auth/register", "/auth/login").permitAll() // Public access for all users
+                        .requestMatchers("/admin/**").hasRole("Admin") // Allow Admin access
+                        .requestMatchers("/teamleader/**").hasAnyRole("TeamLeader") // TeamLeader allow access
+                        .requestMatchers("/staff/**").hasAnyRole("Staff") // Staff allow access
                         .anyRequest().authenticated() // Các request khác yêu cầu xác thực
                 )
                 .formLogin(form -> form
-                        .loginPage("/auth/login") // Trang login tùy chỉnh
+                        .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login")
-                        .permitAll() // Cho phép tất cả mọi người truy cập trang login
+                        .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/auth/logout")
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception
-                        .accessDeniedHandler(accessDeniedHandler()) // Xử lý khi người dùng không có quyền
+                        .accessDeniedHandler(accessDeniedHandler()) // Handle user request permission
                 );
 
         return http.build();
     }
-    // Tạo PasswordEncoder cho việc mã hóa mật khẩu
+    // Create Password Encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Tạo AccessDeniedHandler để xử lý các lỗi truy cập trái phép (403)
+    // Create a handler to prohibit user request (403) if they not have authorization
     @Bean
     public CustomAccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
