@@ -17,38 +17,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Turn off CSRF
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login").permitAll() // Public access for all users
-                        .requestMatchers("/admin/**").hasRole("Admin") // Allow Admin access
-                        .requestMatchers("/teamleader/**").hasAnyRole("TeamLeader") // TeamLeader allow access
-                        .requestMatchers("/staff/**").hasAnyRole("Staff") // Staff allow access
-                        .anyRequest().authenticated() // Các request khác yêu cầu xác thực
-                )
-                .formLogin(form -> form
-                        .loginPage("/auth/login")
-                        .loginProcessingUrl("/auth/login")
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .permitAll()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/admin/**").hasAuthority("Admin") // Hoặc hasRole("ROLE_Admin") nếu có tiền tố
+                        .requestMatchers("/teamleader/**").hasAuthority("TeamLeader") // Hoặc hasRole("ROLE_TeamLeader")
+                        .requestMatchers("/staff/**").hasAuthority("Staff") // Hoặc hasRole("ROLE_Staff")
+                        .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception
-                        .accessDeniedHandler(accessDeniedHandler()) // Handle user request permission
+                        .accessDeniedHandler(accessDeniedHandler())
                 );
-
         return http.build();
     }
-    // Create Password Encoder
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Create a handler to prohibit user request (403) if they not have authorization
     @Bean
     public CustomAccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
     }
 }
+
