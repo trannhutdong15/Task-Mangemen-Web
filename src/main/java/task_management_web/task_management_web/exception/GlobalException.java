@@ -15,6 +15,10 @@ public class GlobalException {
     public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(AccountAlreadyExistException.class)
+    public ResponseEntity<String> handleAccountAlreadyExist(AccountAlreadyExistException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
 
     // Handle RoleNotFoundException
     @ExceptionHandler(RoleNotFoundException.class)
