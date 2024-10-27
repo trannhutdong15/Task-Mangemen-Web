@@ -1,0 +1,172 @@
+/* Main container styling */
+body {
+    background: linear-gradient(145deg, rgba(108, 105, 105, 0.63), rgba(205, 205, 205, 0.8));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Thông báo lỗi */
+.error-message {
+    font-size: 0.875em;
+    color: #c9c984;
+    display: none;
+    margin-top: 5px;
+}
+
+.login-container {
+    display: flex;
+    max-width: 1000px;
+    background-color: rgba(255, 255, 255, 0.7); /* Màu nền trắng mờ */
+    width: 90%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5%);
+}
+
+/* Left section (form) styling */
+.login-form-container {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form-container h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form input styling */
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: rgba(69, 81, 221, 0.87);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: rgba(88, 145, 207, 0.8);
+}
+/* Remember me and Forgot password */
+.form-group-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+/* Remember me and Forgot password */
+.form-check-label {
+    margin-left: 5px;
+}
+
+.text-right {
+    float: right;
+    color: #007bff;
+    margin-top: auto;
+}
+
+.text-right:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Right section (image) styling */
+.login-image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.login-image-container img {
+    width: 100%;
+    height: auto;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    object-fit: cover;
+}
+
+/* Gradient overlay */
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(114, 195, 38, 0.4), rgba(0,0,0,0.8));
+    z-index: -1; /* Đưa nền ra phía sau */
+}
+
+#generalError {
+    display: block;
+    color: red;
+    margin-top: 5px;
+    padding-left: 2px; /* Điều chỉnh khoảng cách nếu cần */
+}
+
+
+
+
+
+/* Định dạng cho link Register for work */
+.register-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register-link a {
+    color: rgba(62, 129, 174, 0.77);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.register-link a:hover {
+    color: rgba(38, 186, 181, 0.8);
+    text-decoration: underline;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+    }
+    .login-image-container {
+        display: none;
+    }
+}
