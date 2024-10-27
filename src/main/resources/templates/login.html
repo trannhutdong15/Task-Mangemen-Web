@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="bg-light">
+<div class="login-container">
+  <div class="login-form-container">
+    <h2>Log In</h2>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email">
+      <span class="error-message text-danger" id="emailError">Email is required</span>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter password">
+      <span class="error-message text-danger" id="passwordError">Password is required</span>
+      <div id="generalError" style="display: none; color: red;"></div>
+    </div>
+    <div class="form-group-inline">
+      <div class="form-check">
+        <input type="checkbox" id="remember" name="remember" class="form-check-input">
+        <label for="remember" class="form-check-label">Remember me</label>
+      </div>
+      <a href="#" class="text-right">Forgot password?</a>
+    </div>
+    <button type="submit" id="signInButton" class="btn btn-primary">Sign In</button>
+    <div class="register-link">
+      <!-- Sử dụng Thymeleaf để chuyển hướng sang trang đăng ký -->
+      <a th:href="@{/user/register}">Register for work</a>
+    </div>
+  </div>
+  <div class="login-image-container">
+    <img th:src="@{/plugin/images/login_image.jpg}" alt="Login Illustration">
+  </div>
+</div>
+
+<!-- Link đến jQuery và Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>
