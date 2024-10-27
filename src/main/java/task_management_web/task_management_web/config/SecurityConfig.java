@@ -19,11 +19,16 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/register", "/login" , "/login_validate").permitAll()
+                        .requestMatchers("/css/**" , "/js/**" , "/plugin/images/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("Admin") // Hoặc hasRole("ROLE_Admin") nếu có tiền tố
                         .requestMatchers("/teamleader/**").hasAuthority("TeamLeader") // Hoặc hasRole("ROLE_TeamLeader")
                         .requestMatchers("/staff/**").hasAuthority("Staff") // Hoặc hasRole("ROLE_Staff")
                         .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
                 )
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(accessDeniedHandler())

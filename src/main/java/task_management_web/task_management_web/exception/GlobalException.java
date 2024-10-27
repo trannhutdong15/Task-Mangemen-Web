@@ -32,7 +32,7 @@ public class GlobalException {
     }
     @ExceptionHandler (AuthenticationFailedException.class)
     public ResponseEntity<String> handleAuthenticationFailedException(AuthenticationFailedException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     // Handle InvalidRequestException
