@@ -25,6 +25,8 @@ public class UserEntity {
     private String address;
     private LocalDate created_at;
 
+    private String avatarUrl;
+
     @ManyToOne(fetch = FetchType.EAGER) // Thiết lập mối quan hệ nhiều-nhiều với bảng Role
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false) // Liên kết với cột id của bảng Role
     private RoleEntity role;

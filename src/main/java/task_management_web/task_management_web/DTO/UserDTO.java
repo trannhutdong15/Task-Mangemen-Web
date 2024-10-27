@@ -33,6 +33,8 @@ public class UserDTO {
 
     private String status;
 
+    private String avatarUrl;
+
     private LocalDate created_at;
 
     private int roleId;
