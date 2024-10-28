@@ -4,12 +4,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import task_management_web.task_management_web.DTO.LoginDTO;
 import task_management_web.task_management_web.DTO.UserDTO;
+import task_management_web.task_management_web.entity.RoleEntity;
 import task_management_web.task_management_web.entity.UserEntity;
 import task_management_web.task_management_web.exception.AccountAlreadyExistException;
 import task_management_web.task_management_web.exception.AccountNotApprovedException;
 import task_management_web.task_management_web.exception.AuthenticationFailedException;
 import task_management_web.task_management_web.exception.UserNotFoundException;
 import task_management_web.task_management_web.mapper.UserMapper;
+import task_management_web.task_management_web.repository.RoleRepository;
 import task_management_web.task_management_web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,15 +26,18 @@ public class AuthenticationService {
 
     private final UserMapper userMapper;
 
+    private final RoleRepository roleRepository;
+
     //Using logger for exception error
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
 
     //Using constructor injection
-    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
+    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper,RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
+        this.roleRepository = roleRepository;
     }
 
 
@@ -53,6 +58,10 @@ public class AuthenticationService {
                 throw new IllegalArgumentException("Password cannot be null or empty");
             }
 
+            if(userRepository.existsByPhoneNumber(userDTO.getPhoneNumber())) {
+                throw new AccountAlreadyExistException("Phone number already exists");
+            }
+
             // Convert DTO to Entity when working with Repository (User)
             UserEntity newuserEntity = userMapper.toEntity(userDTO);
 
@@ -60,6 +69,12 @@ public class AuthenticationService {
             if (newuserEntity.getStatus() == null) {
                 newuserEntity.setStatus(UserEntity.Status.PENDING);
             }
+
+            //Set user role to Staff when they register an account for first time
+            RoleEntity defaultRole = roleRepository.findByRole("Staff")
+                    .orElseThrow(() -> new RuntimeException(" Role Staff not found"));
+            newuserEntity.setRole(defaultRole);
+
 
             //Encoded password before save to database
             newuserEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
