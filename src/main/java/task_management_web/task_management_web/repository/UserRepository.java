@@ -13,4 +13,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     List<UserEntity> findByStatus(UserEntity.Status status);
     boolean existsByEmail(String email);//Find email that exists in the database or not
     Optional<UserEntity> findByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
 }
