@@ -1,0 +1,99 @@
+body {
+    background: linear-gradient(135deg, rgba(172, 142, 195, 0.87) 0%, #7596b6 100%);
+    font-family: Arial, sans-serif;
+}
+
+.register-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.is-invalid {
+    border-color: red;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group input {
+    padding-right: 35px; /* Chừa khoảng trống bên phải cho icon */
+    height: 40px; /* Điều chỉnh độ cao của input nếu cần */
+}
+
+.info-icon {
+    position: absolute;
+    right: 10px; /* Đặt icon sát bên phải */
+    top: 71%;
+    transform: translateY(-50%); /* Căn giữa icon theo chiều dọc */
+    width: 16px; /* Kích thước của icon */
+    height: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.form-control:focus + .info-icon {
+    display: none; /* Ẩn icon khi người dùng nhấp vào trường */
+}
+
+.register-container:hover {
+    transform: translateY(-10px);
+}
+
+h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-control {
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #6c757d;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
