@@ -27,7 +27,7 @@ public class UserDTO {
     private String password;
 
     @NotBlank(message = "Your phone number is required")
-    private String phone_number;
+    private String phoneNumber;
 
     private String address;
 

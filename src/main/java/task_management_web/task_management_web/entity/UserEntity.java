@@ -21,7 +21,8 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
     private String password;
-    private String phone_number;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     private String address;
     private LocalDate created_at;
 

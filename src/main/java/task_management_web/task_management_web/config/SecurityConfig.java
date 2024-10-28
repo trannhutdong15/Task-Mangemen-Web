@@ -19,7 +19,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login" , "/login_validate").permitAll()
+                        .requestMatchers("/register", "/login" , "/login_validate" , "register_validate").permitAll()
                         .requestMatchers("/css/**" , "/js/**" , "/plugin/images/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("Admin") // Hoặc hasRole("ROLE_Admin") nếu có tiền tố
                         .requestMatchers("/teamleader/**").hasAuthority("TeamLeader") // Hoặc hasRole("ROLE_TeamLeader")
