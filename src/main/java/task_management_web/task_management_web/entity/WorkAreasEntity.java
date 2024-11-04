@@ -14,7 +14,7 @@ import java.util.Set;
 public class WorkAreasEntity {
     @Id
     @Column(name = "id" , length = 10)
-    private int id;
+    private String id;
 
     private String name;
 

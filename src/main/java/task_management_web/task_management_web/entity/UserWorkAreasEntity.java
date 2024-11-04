@@ -3,7 +3,8 @@ package task_management_web.task_management_web.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "UserWorkAreas")
@@ -25,10 +26,10 @@ public class UserWorkAreasEntity {
     private String roleType;
 
     @Column(name = "start_date")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date")
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
 
 
