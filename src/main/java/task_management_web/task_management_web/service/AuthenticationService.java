@@ -1,5 +1,6 @@
 package task_management_web.task_management_web.service;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import task_management_web.task_management_web.DTO.LoginDTO;
@@ -15,7 +16,7 @@ import task_management_web.task_management_web.repository.RoleRepository;
 import task_management_web.task_management_web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Service
@@ -28,15 +29,18 @@ public class AuthenticationService {
 
     private final RoleRepository roleRepository;
 
+    private final SessionTokenService sessionTokenService;
+
     //Using logger for exception error
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
 
     //Using constructor injection
-    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper,RoleRepository roleRepository) {
+    public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper,RoleRepository roleRepository , SessionTokenService sessionTokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
+        this.sessionTokenService = sessionTokenService;
         this.roleRepository = roleRepository;
     }
 
@@ -78,7 +82,7 @@ public class AuthenticationService {
 
             //Encoded password before save to database
             newuserEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            newuserEntity.setCreated_at(LocalDate.now());
+            newuserEntity.setCreatedAt(LocalDateTime.now());
 
             userRepository.save(newuserEntity);
             return true;
@@ -93,7 +97,7 @@ public class AuthenticationService {
     }
 
     // Function Login Logic
-    public void login (LoginDTO loginDTO) {
+    public String login (@NotNull LoginDTO loginDTO) {
 
         // Find User in Repository or in database if not found throw exception
         UserEntity userEntity = userRepository.findByEmail(loginDTO.getEmail())
@@ -101,13 +105,16 @@ public class AuthenticationService {
 
         // Check if an account is verified or not
         if (userEntity.getStatus() != UserEntity.Status.APPROVED) {
-            throw new AccountNotApprovedException("Account is not approved or rejected");
+            throw new AccountNotApprovedException("Account is not approved");
         }
 
         // Check the password of user accounts see if it matched or not in the database
         if (!passwordEncoder.matches(loginDTO.getPassword(), userEntity.getPassword())) {
             throw new AuthenticationFailedException("Invalid credentials");
         }
+        String role = userEntity.getRoleName();
+        // Generate session token after successful authentication
+        return sessionTokenService.createSessionToken(userEntity.getEmail(),role);
     }
 
     }
