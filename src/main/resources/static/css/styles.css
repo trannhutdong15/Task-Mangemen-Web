@@ -8,21 +8,13 @@ body {
     margin: 0;
 }
 
-/* Thông báo lỗi */
-.error-message {
-    font-size: 0.875em;
-    color: #c9c984;
-    display: none;
-    margin-top: 5px;
-}
-
+/* Container styling */
 .login-container {
     display: flex;
     max-width: 1000px;
-    background-color: rgba(255, 255, 255, 0.7); /* Màu nền trắng mờ */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
     width: 90%;
     margin: 0 auto;
-    background-color: white;
     border-radius: 15px;
     overflow: hidden;
     backdrop-filter: blur(10px);
@@ -63,21 +55,39 @@ body {
     box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
 }
 
+/* Error message styling for login errors under the password field */
+#loginError {
+    display: none; /* Initially hidden, will display when there’s an error */
+    color: red;
+    margin-top: 5px;
+    font-size: 0.875em; /* Slightly smaller font for error messages */
+}
+
+/* Error message styling for general and field errors */
+.error-message {
+    color: red;
+    font-size: 0.875em;
+}
+
 /* Button styling */
 .btn-primary {
-    background-color: rgba(69, 81, 221, 0.87);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin-top: 20px;
+    background-color: rgba(43, 84, 170, 0.85);
     border: none;
     border-radius: 8px;
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
-    margin-top: 20px;
     transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
     background-color: rgba(88, 145, 207, 0.8);
 }
+
 /* Remember me and Forgot password */
 .form-group-inline {
     display: flex;
@@ -85,7 +95,7 @@ body {
     align-items: center;
     margin-top: 5px;
 }
-/* Remember me and Forgot password */
+
 .form-check-label {
     margin-left: 5px;
 }
@@ -93,7 +103,6 @@ body {
 .text-right {
     float: right;
     color: #007bff;
-    margin-top: auto;
 }
 
 .text-right:hover {
@@ -120,29 +129,7 @@ body {
     object-fit: cover;
 }
 
-/* Gradient overlay */
-.background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(114, 195, 38, 0.4), rgba(0,0,0,0.8));
-    z-index: -1; /* Đưa nền ra phía sau */
-}
-
-#generalError {
-    display: block;
-    color: red;
-    margin-top: 5px;
-    padding-left: 2px; /* Điều chỉnh khoảng cách nếu cần */
-}
-
-
-
-
-
-/* Định dạng cho link Register for work */
+/* Register link styling */
 .register-link {
     text-align: center;
     margin-top: 15px;
@@ -159,7 +146,6 @@ body {
     color: rgba(38, 186, 181, 0.8);
     text-decoration: underline;
 }
-
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
