@@ -1,0 +1,691 @@
+/* Global Box Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Wrapper for entire page */
+#wrapper {
+    display: flex;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar wrapper */
+#sidebar-wrapper {
+    width: 240px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(145deg, #e0f3e2, #b2e3c9); /* Softer gradient for a modern look */
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Collapsible Sidebar */
+#wrapper.toggled #sidebar-wrapper {
+    width: 0;
+    overflow: hidden;
+}
+
+/* Sidebar heading container */
+.sidebar-heading-container {
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Sidebar heading text */
+.sidebar-heading {
+    font-size: 1.25rem;
+    background: linear-gradient(145deg, #66b36b, #5fad5f); /* Darker green */
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Sidebar items container */
+.sidebar-items-container {
+    padding-left: 10px;
+    padding-right: 15px;
+}
+
+/* Sidebar item style */
+.list-group-item {
+    margin-bottom: 30px; /* Vertical spacing */
+    border-radius: 14px; /* Rounded corners */
+    padding: 10px 10px;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Sidebar item hover effect */
+.list-group-item:hover {
+    background-color: #5fad5f; /* Darker green on hover */
+    color: #ffffff; /* Lighter text */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Shadow on hover */
+    transform: translateX(5px); /* Smooth shift */
+}
+
+/* Active sidebar item style */
+.list-group-item.active {
+    background-color: #6dbf6e; /* Green for active item */
+    color: white;
+    box-shadow: 0 4px 15px rgba(109, 191, 110, 0.3);
+    position: relative;
+}
+
+/* Glowing bar for active item */
+.list-group-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: #4caf50; /* Active indicator */
+    border-radius: 10px 0 0 10px;
+}
+
+/* Icon styling */
+.list-group-item i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+    color: #4caf50; /* Initial icon color */
+    transition: color 0.3s ease; /* Smooth icon color transition */
+}
+
+/* Icon color change on hover */
+.list-group-item:hover i {
+    color: #ffffff; /* White icon color on hover */
+}
+
+/* Page content wrapper */
+#page-content-wrapper {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* Top navigation adjustments */
+.navbar {
+    width: 100%;
+    background-color: transparent;
+    z-index: 999;
+    transition: all 0.3s ease;
+    color: #333;
+    box-shadow: none;
+}
+
+/* Search bar container */
+.search-form {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+/* Search input styling */
+.search-form input {
+    width: 100%;
+    border-radius: 20px;
+    padding-right: 30px;
+    border: 1px solid #5fad5f;
+    transition: border-color 0.3s ease;
+}
+
+/* Search icon inside input field */
+.search-form .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #5fad5f;
+}
+
+/* Task rows styling for dashboard */
+.task-row {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-row:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress bar styling */
+.progress {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    height: 100%;
+    line-height: 20px;
+    animation: loadProgress 2s ease;
+    background-color: #5fad5f;
+}
+
+@keyframes loadProgress {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 75%;
+    }
+}
+
+/* Notification Bell Icon - Hover Effect */
+.nav-link .fas.fa-bell:hover {
+    color: #4caf50;
+    transform: rotate(15deg);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Button Hover Effects */
+.btn {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #4caf50;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Added shadow on hover */
+}
+
+/* User Profile Dropdown */
+.nav-profile {
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    width: 150px;
+    transform-origin: top right;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    transform: scaleY(0);
+    white-space: nowrap;
+}
+
+.nav-profile:hover .nav-profile-dropdown {
+    display: block;
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.nav-profile-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.nav-profile-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Fade-in animation for content */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Table styling for Members Section */
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modern-table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.modern-table thead {
+    background-color: #5fad5f;
+    color: #fff;
+}
+
+.modern-table th,
+.modern-table td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ececec;
+}
+
+.modern-table th {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.modern-table tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.modern-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.modern-table td {
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.add-task-container {
+    background-color: rgba(144, 238, 144, 0.2); /* Màu xanh lá nhạt mờ */
+    border-radius: 10px;  /* Bo góc */
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;  /* Đặt nó cách phần tiêu đề dashboard một chút */
+    max-width: 300px; /* Giới hạn chiều rộng */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Nút Add Task */
+.add-task-btn {
+    background-color: #90EE90; /* Màu xanh lá nhạt */
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px; /* Bo góc tròn */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa icon và chữ */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tạo bóng cho nút */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 30px; /* Khoảng cách từ nút đến bảng nhiệm vụ */
+    font-weight: bold;
+}
+
+/* Hiệu ứng hover cho nút Add Task */
+.add-task-btn:hover {
+    background-color: #76c76d; /* Màu xanh lá đậm hơn khi hover */
+    transform: scale(1.05); /* Phóng to nút một chút */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Tăng độ bóng khi hover */
+}
+
+/* Bảng hiển thị nhiệm vụ */
+.task-list table {
+    width: 100%;
+    border-radius: 12px; /* Bo góc bảng */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Tạo bóng cho bảng */
+    animation: fadeIn 1s ease-out; /* Hiệu ứng fade-in khi bảng xuất hiện */
+    margin-top: 30px; /* Khoảng cách từ nút đến bảng */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cải tiến các cột trong bảng */
+.table th,
+.table td {
+    padding: 15px 20px; /* Tăng padding để nội dung không quá chật */
+    text-align: center; /* Căn giữa nội dung trong các cột */
+    font-size: 16px; /* Kích thước chữ dễ nhìn */
+}
+
+/* Tùy chỉnh tiêu đề của bảng */
+.table thead {
+    background-color: #5fad5f; /* Màu nền xanh cho tiêu đề */
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Các hàng bảng */
+.table tbody tr {
+    transition: all 0.3s ease; /* Hiệu ứng mượt khi hover vào hàng */
+}
+
+/* Hiệu ứng khi hover vào hàng bảng */
+.table tbody tr:hover {
+    background-color: #f0f8f0; /* Màu nền sáng hơn khi hover */
+    transform: translateX(5px); /* Dịch chuyển một chút khi hover */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Tạo bóng cho hàng khi hover */
+}
+
+/* Sửa lại màu nền cho các hàng lẻ */
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #fafafa; /* Màu nền sáng cho hàng lẻ */
+}
+
+/* Tạo hiệu ứng mượt khi bảng xuất hiện */
+.table td, .table th {
+    border-bottom: 1px solid #ececec;
+}
+
+/* Chỉnh sửa cho các nút trong bảng (nếu có) */
+.table .btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.table .btn:hover {
+    background-color: #5fad5f;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    /* Giảm kích thước chữ và padding cho bảng trên thiết bị di động */
+    .table th, .table td {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    /* Giảm kích thước nút Add Task trên thiết bị di động */
+    .add-task-btn {
+        font-size: 14px;
+        padding: 10px 18px;
+    }
+}
+
+/* Thanh progress */
+.progress {
+    background-color: #e9ecef; /* Màu nền nhạt cho thanh */
+    border-radius: 10px; /* Bo góc thanh */
+    height: 20px; /* Chiều cao thanh tiến độ */
+    margin-top: 10px; /* Khoảng cách từ cột tiến độ đến các cột khác */
+}
+
+/* Thanh tiến độ */
+.progress-bar {
+    height: 100%;
+    line-height: 20px; /* Căn giữa chữ trong thanh tiến độ */
+    text-align: center;
+    color: white; /* Màu chữ trắng */
+    border-radius: 10px; /* Bo góc thanh tiến độ */
+    transition: width 0.4s ease-in-out; /* Hiệu ứng khi thay đổi giá trị */
+}
+
+/* Màu sắc của thanh tiến độ */
+.progress-bar {
+    background-color: #5fad5f; /* Màu xanh cho thanh tiến độ */
+}
+
+/* Hiệu ứng khi thanh tiến độ đạt 100% */
+.progress-bar[aria-valuenow="100"] {
+    background-color: #28a745; /* Màu xanh lá đậm khi hoàn thành */
+}
+
+/* Định dạng các giá trị trong bảng */
+.table td, .table th {
+    border-bottom: 1px solid #ececec;
+}
+
+/* Task form styling */
+#add-task-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+/* Modal styling */
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #5fad5f;
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.modal-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Container for selected staff */
+#selected-staff-list {
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Selected staff item styling */
+.selected-staff-item {
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 6px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Add Staff button styling */
+#add-staff-btn {
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#add-staff-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Staff item in modal styling */
+.staff-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #fff;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+.staff-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Checkbox for staff selection */
+.staff-item input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Label styling in staff item */
+.staff-item label {
+    font-weight: 500;
+    color: #333;
+}
+
+/* Task title styling */
+.task-form h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Save Task button */
+#save-task-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+#save-task-btn:hover {
+    background-color: #218838;
+}
+
+/* Cancel button styling */
+#cancel-task-btn {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+#cancel-task-btn:hover {
+    background-color: #5a6268;
+}
+
+.deselect-staff-btn {
+    background-color: transparent;
+    border: none;
+    color: #ff4c4c;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.deselect-staff-btn:hover {
+    color: #ff0000;
+}
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #ced4da;
+    padding: 0.3rem;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.table-striped tbody tr:hover {
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
+}
+
+.member-count {
+    cursor: pointer;
+    position: relative;
+}
+
+.member-count:hover .member-names {
+    display: block;
+}
+
+.member-names {
+    display: none;
+    position: absolute;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    top: -60px; /* Adjusted to move the tooltip above the element */
+    left: 50%; /* Center the tooltip horizontally */
+    transform: translateX(-50%); /* Center-align based on width */
+    width: 180px;
+    z-index: 100; /* Higher z-index to bring it in front */
+    box-shadow: 0 4px 8px rgba(50, 49, 49, 0.1);
+    white-space: nowrap;
+    animation: fadeIn 0.3s ease;
+}
+
+.member-names span {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.member-names span:hover {
+    color: #007bff; /* Change color on hover */
+}

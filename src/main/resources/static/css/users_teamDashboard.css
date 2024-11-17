@@ -1,0 +1,103 @@
+/* Styling cho tiêu đề bảng */
+#members-section h3 {
+    color: #28a745; /* Màu tiêu đề xanh lá */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling cho bảng */
+#members-section table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff; /* Màu nền bảng trắng */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow nhẹ */
+    border-radius: 8px; /* Bo góc bảng */
+    overflow: hidden; /* Đảm bảo bo góc */
+}
+
+#members-section thead {
+    background-color: #28a745; /* Màu nền của phần tiêu đề bảng */
+}
+
+#members-section thead th {
+    color: #ffffff;
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+#members-section tbody td {
+    padding: 12px;
+    color: #333333;
+    font-size: 15px;
+    vertical-align: middle;
+    border-top: 1px solid #dddddd;
+}
+
+/* Hiệu ứng hover cho các hàng */
+#members-section tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+#members-section tbody tr:hover {
+    background-color: #e6ffe6; /* Màu nền xanh nhạt khi hover */
+}
+
+/* Styling cho dòng "Nothing to show" */
+#members-section .text-center.font-italic {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+    padding: 20px;
+}
+
+/* Styling cho các ô "Not Assigned" */
+#members-section td[colspan="2"] {
+    color: #999999;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Styling cho nút "View Tasks" */
+#members-section .view-tasks-btn {
+    background-color: #28a745; /* Màu xanh lá cho nút */
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px; /* Bo góc nút */
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng hover */
+    display: inline-flex;
+    align-items: center;
+}
+
+#members-section .view-tasks-btn:hover {
+    background-color: #218838; /* Màu xanh lá đậm hơn khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+/* Icon cho nút "View Tasks" */
+#members-section .view-tasks-btn::before {
+    content: "\f058"; /* Icon check từ Font Awesome */
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+    margin-right: 5px;
+}
+
+/* Căn giữa tất cả các ô trong bảng */
+#members-section table th, #members-section table td {
+    text-align: center;
+}
+
+/* Animation cho bảng khi hiển thị */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#members-section {
+    animation: fadeIn 0.5s ease-in-out;
+}
