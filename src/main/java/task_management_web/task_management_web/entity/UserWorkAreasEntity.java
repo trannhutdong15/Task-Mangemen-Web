@@ -1,5 +1,6 @@
 package task_management_web.task_management_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,10 +17,12 @@ public class UserWorkAreasEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id" , nullable = false)
+    @JsonIgnore
     private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "work_area_id" , nullable = false)
+    @JsonIgnore
     private WorkAreasEntity workAreas;
 
     @Column(name = "role_type")

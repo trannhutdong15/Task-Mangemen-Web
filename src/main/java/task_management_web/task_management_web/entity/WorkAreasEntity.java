@@ -1,16 +1,16 @@
 package task_management_web.task_management_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "WorkAreas")
-@Getter
-@Setter
+@Data
 public class WorkAreasEntity {
     @Id
     @Column(name = "id" , length = 10)
@@ -21,8 +21,9 @@ public class WorkAreasEntity {
     private String description;
 
     @Column(name = "created_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "workAreas")
+    @JsonIgnore
     private Set<UserWorkAreasEntity> userWorkAreas;
 }
