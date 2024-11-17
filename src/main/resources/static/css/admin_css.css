@@ -1,0 +1,384 @@
+/* Global Box Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* Include padding and border in element's width and height */
+}
+
+/* Wrapper for entire page */
+#wrapper {
+    display: flex;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar wrapper */
+#sidebar-wrapper {
+    width: 240px; /* Fixed width for sidebar */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(145deg, #d4e3fc, #b0c9f4);
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure sidebar is always above the page content */
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Collapsible Sidebar */
+#wrapper.toggled #sidebar-wrapper {
+    width: 0; /* Collapsed sidebar width */
+    overflow: hidden;
+}
+
+/* Sidebar heading container for "Admin Panel" */
+.sidebar-heading-container {
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Sidebar heading text */
+.sidebar-heading {
+    font-size: 1.25rem;
+    background: linear-gradient(145deg, #6a5acd, #4a90e2);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Sidebar items container */
+.sidebar-items-container {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Sidebar item styles */
+.list-group-item {
+    font-size: 1rem;
+    color: #333;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Active sidebar item style */
+.list-group-item.active {
+    background-color: #4a90e2;
+    color: white;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+    position: relative;
+}
+
+/* Sidebar item hover effect */
+.list-group-item:hover {
+    background-color: rgba(74, 144, 226, 0.25);
+    transform: translateX(5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar item hover effect - Glowing bar for active item */
+.list-group-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: #ff5722;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Icon styling for sidebar items */
+.list-group-item i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+    color: #4a90e2; /* Changed to match theme */
+}
+
+/* Page content wrapper */
+#page-content-wrapper {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* Top navigation adjustments */
+.navbar {
+    width: 100%;
+    background-color: transparent;
+    z-index: 999;
+    transition: all 0.3s ease;
+    color: #333;
+    box-shadow: none; /* Remove top navbar shadow */
+}
+
+/* Search bar container */
+.search-form {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+/* Search input styling */
+.search-form input {
+    width: 100%;
+    border-radius: 20px;
+    padding-right: 30px;
+    border: 1px solid #6a5acd;
+}
+
+/* Search icon inside input field */
+.search-form .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6a5acd;
+}
+
+/* Task rows styling for dashboard */
+.task-row {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-row:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress bar styling */
+.progress {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    height: 100%;
+    line-height: 20px;
+    animation: loadProgress 2s ease;
+    background-color: #6a5acd;
+}
+
+@keyframes loadProgress {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 75%; /* This should be dynamic based on actual progress */
+    }
+}
+
+/* Notification Bell Icon - Hover Effect */
+.nav-link .fas.fa-bell:hover {
+    color: #ff5722;
+    transform: rotate(15deg);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Button Hover Effects */
+.btn {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ff5722;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* User Profile Dropdown */
+.nav-profile {
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%; /* Adjusted to make dropdown immediately visible without scroll */
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 1000;
+    width: 150px;
+    transform-origin: top right;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    transform: scaleY(0);
+    white-space: nowrap; /* Prevent dropdown items from wrapping */
+}
+
+.nav-profile:hover .nav-profile-dropdown {
+    display: block;
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.nav-profile-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.nav-profile-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Fade-in animation for content */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    #sidebar-wrapper {
+        width: 100%;
+        position: absolute;
+        left: -100%;
+        height: auto;
+        transition: left 0.3s ease;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        left: 0;
+    }
+    #page-content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+    .navbar {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/**** Pending User Requests Section Styles ****/
+
+.container-fluid {
+    padding: 20px;
+}
+
+.content-header {
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ececec;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modern-table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.modern-table thead {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+.modern-table th,
+.modern-table td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ececec;
+}
+
+.modern-table th {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.modern-table tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.modern-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.modern-table td {
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* Giảm kích thước chữ và padding cho các cột */
+.modern-table th,
+.modern-table td {
+    font-size: 0.85rem; /* Giảm kích thước chữ */
+    padding: 6px 10px; /* Giảm padding để tiết kiệm không gian */
+}
+
+/* Điều chỉnh khoảng cách cột */
+.modern-table th,
+.modern-table td {
+    width: auto; /* Đặt tự động cho độ rộng cột */
+    white-space: nowrap; /* Ngăn chữ xuống dòng để bảng gọn hơn */
+}
+
+/* Giảm kích thước chữ của tiêu đề bảng */
+.section-title {
+    font-size: 1.25rem; /* Giảm kích thước chữ tiêu đề */
+}
+
+/* Điều chỉnh khoảng cách giữa các hàng */
+.table-responsive {
+    padding: 10px; /* Giảm padding để tiết kiệm không gian */
+}
+
+/* Thu nhỏ nút */
+.btn-approve, .btn-reject {
+    font-size: 0.85rem; /* Giảm kích thước chữ của nút */
+    padding: 4px 10px; /* Giảm kích thước nút */
+    border-radius: 6px; /* Bo góc cho mềm mại */
+}
+
+
+
+
