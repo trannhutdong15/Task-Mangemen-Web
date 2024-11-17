@@ -1,15 +1,21 @@
 package task_management_web.task_management_web.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class UserDTO {
+
+    @NotBlank(message = "Id required")
+    private Integer id;
 
     @NotBlank(message = "Your full name is required")
     private String full_name;
@@ -35,7 +41,19 @@ public class UserDTO {
 
     private String avatarUrl;
 
-    private LocalDate created_at;
+    @JsonProperty("createdAt")
+    private LocalDateTime createdAt;
 
     private int roleId;
+
+    private String roleName;
+
+    // Các trường mới cho WorkArea
+    private String workAreaId;
+
+    private String workAreaName;
+
+    private List<AssignedTaskDTO> assignedTasks;
+
 }
+

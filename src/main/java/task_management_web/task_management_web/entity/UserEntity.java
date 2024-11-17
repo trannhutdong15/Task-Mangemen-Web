@@ -1,10 +1,13 @@
 package task_management_web.task_management_web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -13,6 +16,7 @@ import java.time.LocalDate;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private int id;
 
     private String full_name;
@@ -24,12 +28,14 @@ public class UserEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
     private String address;
-    private LocalDate created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     private String avatarUrl;
 
     @ManyToOne(fetch = FetchType.EAGER) // Thiết lập mối quan hệ nhiều-nhiều với bảng Role
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false) // Liên kết với cột id của bảng Role
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore// Liên kết với cột id của bảng Role
     private RoleEntity role;
 
     //Status of a new account
@@ -39,6 +45,13 @@ public class UserEntity {
     public enum Status {
         PENDING,
         APPROVED,
-        REJECTED
     }
+    //Link to UserWorkAreasEntity
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<UserWorkAreasEntity> userWorkAreas;
+
+    @ManyToMany(mappedBy = "assignedTo")
+    @JsonIgnore
+    private List<TaskEntity> tasks;
 }
