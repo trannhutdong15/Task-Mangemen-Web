@@ -48,29 +48,27 @@ public class AuthenticationController {
         return new ResponseEntity<>("Register failed", HttpStatus.BAD_REQUEST);
     }
 
-    //Post method for Login
+    // Post method for Login
     @PostMapping("/login_validate")
-
-    public ResponseEntity<Map<String, String>> loginUser(@Valid @RequestBody LoginDTO loginDTO, HttpServletResponse response) {
-
+    public ResponseEntity<Map<String, Object>> loginUser(@Valid @RequestBody LoginDTO loginDTO, HttpServletResponse response) {
         try {
-            // Authenticate user and obtain session token
-            String token = authenticationService.login(loginDTO);
-
+            // Call the login service and receive the response map
+            Map<String, Object> result = authenticationService.login(loginDTO);
 
             // Create a cookie with the session token
-            Cookie cookie = new Cookie("SESSIONID", token);
-            cookie.setHttpOnly(true);   // Prevent JavaScript access for security
-            cookie.setPath("/");        // Make the cookie available site-wide
+            Cookie cookie = new Cookie("SESSIONID", result.get("token").toString());
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 10); // Set cookie lifespan to 10 hours
 
             response.addCookie(cookie); // Add cookie to response
 
-            // Prepare JSON response with token and role
-            Map<String, String> responseBody = new HashMap<>();
-            responseBody.put("token", token);
+            // Prepare the response for the client
+            Map<String, Object> clientResponse = new HashMap<>();
+            clientResponse.put("roleName", result.get("roleName"));
+            clientResponse.put("workAreaId", result.get("workAreaId"));
 
-            return ResponseEntity.ok(responseBody); // Return JSON response
+            return ResponseEntity.ok(clientResponse); // Return JSON response with roleName and workAreaId
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

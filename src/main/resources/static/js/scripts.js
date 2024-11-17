@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Select the sign-in button
     const signInButton = document.getElementById("signInButton");
 
     // Check if the button exists before adding an event listener
     if (signInButton) {
-        signInButton.addEventListener("click", function(event) {
+        signInButton.addEventListener("click", function (event) {
             event.preventDefault();
 
             // Retrieve values for email and password
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     .then(response => {
                         if (!response.ok) {
                             if (response.status === 401) {
-                                // Display login error below the password field if authentication fails
+                                // Display login error if authentication fails
                                 if (loginError) {
                                     loginError.textContent = "Invalid email or password. Please try again.";
                                     loginError.style.display = "block";
@@ -70,16 +70,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     })
                     .then(data => {
                         if (data) {
-                            const { token, role } = data;
-
-                            // Set token in cookie
-                            document.cookie = `SESSIONID=${token}; path=/; HttpOnly`;
+                            const { roleName, workAreaId } = data;
 
                             // Redirect based on user role
-                            if (role === "Admin") {
+                            if (roleName === "Admin") {
                                 window.location.href = "/admin/home";
                             } else {
-                                window.location.href = "/home";
+                                window.location.href = "/api/home";
                             }
                         }
                     })

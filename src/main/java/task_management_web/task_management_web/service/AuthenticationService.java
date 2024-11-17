@@ -1,6 +1,6 @@
 package task_management_web.task_management_web.service;
 
-import org.jetbrains.annotations.NotNull;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import task_management_web.task_management_web.DTO.LoginDTO;
@@ -17,6 +17,8 @@ import task_management_web.task_management_web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -97,25 +99,39 @@ public class AuthenticationService {
     }
 
     // Function Login Logic
-    public String login (@NotNull LoginDTO loginDTO) {
-
-        // Find User in Repository or in database if not found throw exception
+    @Transactional
+    public Map<String, Object> login(LoginDTO loginDTO) {
+        // Tìm kiếm người dùng trong repository hoặc cơ sở dữ liệu; ném ngoại lệ nếu không tìm thấy
         UserEntity userEntity = userRepository.findByEmail(loginDTO.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        // Check if an account is verified or not
+        // Kiểm tra trạng thái tài khoản
         if (userEntity.getStatus() != UserEntity.Status.APPROVED) {
             throw new AccountNotApprovedException("Account is not approved");
         }
 
-        // Check the password of user accounts see if it matched or not in the database
+        // Kiểm tra mật khẩu
         if (!passwordEncoder.matches(loginDTO.getPassword(), userEntity.getPassword())) {
             throw new AuthenticationFailedException("Invalid credentials");
         }
-        String role = userEntity.getRoleName();
-        // Generate session token after successful authentication
-        return sessionTokenService.createSessionToken(userEntity.getEmail(),role);
-    }
 
+        // Lấy tên vai trò và work area
+        String roleName = userEntity.getRole().getRole();
+        String workAreaId = userEntity.getUserWorkAreas().stream()
+                .findFirst()
+                .map(userWorkArea -> userWorkArea.getWorkAreas().getId())
+                .orElse("Not Assigned");
+
+        // Tạo token phiên với username, roleName và workAreaId
+        String token = sessionTokenService.createSessionToken(userEntity.getEmail(), roleName, workAreaId);
+
+        // Chuẩn bị phản hồi dưới dạng bản đồ với token, roleName và workAreaId
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("token", token);
+        responseBody.put("roleName", roleName);
+        responseBody.put("workAreaId", workAreaId);
+
+        return responseBody;
     }
+}
 
