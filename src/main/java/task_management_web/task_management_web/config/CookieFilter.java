@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import task_management_web.task_management_web.service.SessionTokenService;
 
-
 import java.io.IOException;
 import java.util.Collections;
 
@@ -43,7 +42,8 @@ public class CookieFilter extends OncePerRequestFilter {
         // Validate the token and set authentication if valid
         if (token != null && sessionTokenService.validateToken(token)) {
             String username = sessionTokenService.getUsernameFromToken(token);
-            String role = sessionTokenService.getRoleFromToken(token); // Lấy role từ token
+            String role = sessionTokenService.getRoleFromToken(token);
+            String workAreaId = sessionTokenService.getWorkAreaIdFromToken(token);
 
             // Tạo danh sách quyền hạn với role
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
@@ -53,6 +53,11 @@ public class CookieFilter extends OncePerRequestFilter {
 
             // Set the security context with the authenticated user
             SecurityContextHolder.getContext().setAuthentication(authToken);
+
+            // Lưu workAreaId vào session để có thể truy xuất ở mọi nơi trong request này
+            if (workAreaId != null) {
+                request.getSession().setAttribute("workAreaId", workAreaId);
+            }
         }
 
         chain.doFilter(request, response);
