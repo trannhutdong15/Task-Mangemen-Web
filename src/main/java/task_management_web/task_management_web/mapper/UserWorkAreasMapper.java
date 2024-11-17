@@ -8,13 +8,13 @@ import task_management_web.task_management_web.entity.UserWorkAreasEntity;
 @Mapper(componentModel = "spring")
 public interface UserWorkAreasMapper {
 
-    //Convert Entity to DTO
+    // Convert Entity to DTO
     @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "workAreas.id" , target = "workAreaId")
+    @Mapping(source = "workAreas.id", target = "workAreaId")
     UserWorkAreasDTO toDTO(UserWorkAreasEntity userWorkAreasEntity);
 
     // Convert DTO to Entity
     @Mapping(source = "userId", target = "user.id")
-    @Mapping(source = "workAreaId" , target = "workAreas.id")
-    UserWorkAreasEntity toEntity(UserWorkAreasDTO userWorkAreaDTO);
+    @Mapping(source = "workAreaId", target = "workAreas.id")
+    UserWorkAreasEntity toEntity(UserWorkAreasDTO userWorkAreasDTO);
 }
