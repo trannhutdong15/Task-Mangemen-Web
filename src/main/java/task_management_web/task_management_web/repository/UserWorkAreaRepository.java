@@ -11,4 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserWorkAreaRepository extends JpaRepository<UserWorkAreasEntity , Integer> {
     Optional<UserWorkAreasEntity> findByUser(UserEntity user);
+
+    //Find exist user by id and also find work area id of that user
+    boolean existsByUserIdAndWorkAreas_Id(Integer userId, String workAreaId);
 }

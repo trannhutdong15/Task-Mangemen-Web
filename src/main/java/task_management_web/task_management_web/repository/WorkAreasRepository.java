@@ -6,5 +6,4 @@ import task_management_web.task_management_web.entity.WorkAreasEntity;
 
 @Repository
 public interface WorkAreasRepository extends JpaRepository<WorkAreasEntity, String> {
-
 }
