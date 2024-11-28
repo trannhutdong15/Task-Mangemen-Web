@@ -1,0 +1,235 @@
+/* Navbar Background with Gradient and 3D Effect */
+.navbar {
+    background: linear-gradient(145deg, rgba(37, 213, 96, 0.72), rgba(150, 234, 143, 0.85)); /* Xanh pha tím nhạt */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1), -4px -4px 10px rgba(255, 255, 255, 0.5); /* Hiệu ứng 3D */
+    border-radius: 12px; /* Bo góc thanh */
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px; /* Chiều cao navbar */
+}
+
+/* Profile and Notification Styling */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+.nav-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa avatar và tên */
+}
+
+.nav-profile img {
+    width: 36px; /* Giảm kích thước avatar */
+    height: 36px;
+    border: 2px solid #28a745;
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-profile img:hover {
+    transform: scale(1.1); /* Zoom nhẹ khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tên người dùng */
+.user-name-text {
+    font-size: 0.9rem; /* Giảm kích thước chữ */
+    font-weight: bold;
+    color: #2f662f;
+    margin-left: 8px; /* Khoảng cách giữa avatar và tên */
+    text-transform: capitalize;
+    transition: color 0.3s ease;
+}
+
+.user-name-text:hover {
+    color: #218838; /* Đổi màu khi hover */
+}
+
+/* Role icon */
+#role-icon {
+    font-size: 1rem; /* Giảm kích thước icon */
+    color: #f4c542; /* Màu vàng */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#role-icon:hover {
+    transform: scale(1.1); /* Zoom nhẹ khi hover */
+    color: #ffd700; /* Màu vàng đậm hơn khi hover */
+}
+
+/* Dropdown */
+.nav-profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    display: none;
+    z-index: 1000;
+}
+
+.nav-profile:hover .nav-profile-dropdown {
+    display: block;
+    animation: fadeInDropdown 0.3s ease-in-out;
+}
+
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-profile-dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #2f662f;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-profile-dropdown a:hover {
+    background: rgba(172, 221, 172, 0.9);
+    transform: scale(1.05);
+}
+
+/* Profile Section Styling */
+#profile-section {
+    padding: 40px;
+    background: linear-gradient(145deg, #e0ffe0, #b3ffb3);
+    border-radius: 16px;
+    box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2), -8px -8px 15px rgba(255, 255, 255, 0.5);
+    animation: fadeInProfile 0.5s ease-in-out;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+@keyframes fadeInProfile {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Profile Avatar */
+.avatar-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Căn giữa theo cả chiều ngang và dọc */
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Bo tròn hoàn hảo */
+    border: 4px solid #28a745; /* Viền xanh lá */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Shadow mềm mại */
+    object-fit: cover; /* Đảm bảo ảnh lấp đầy khung tròn mà không bị méo */
+    object-position: center; /* Lấy trung tâm ảnh (giữa mặt) */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt khi hover */
+}
+
+.profile-avatar:hover {
+    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Tăng shadow */
+}
+
+/* Upload Button on Hover */
+.upload-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Bo tròn đồng bộ với avatar */
+    background-color: rgba(0, 0, 0, 0.6); /* Nền đen trong suốt */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Ẩn mặc định */
+    transition: opacity 0.3s ease;
+    cursor: pointer; /* Con trỏ dạng tay khi hover */
+}
+
+.avatar-container:hover .upload-overlay {
+    opacity: 1; /* Hiển thị overlay khi hover */
+}
+
+
+/* Profile Form */
+#profile-form .form-group {
+    margin-bottom: 20px;
+}
+
+#profile-form .form-control {
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    background: #f9f9f9;
+    border: 2px solid #dddddd;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+#profile-form .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 10px #80ff80;
+    outline: none;
+}
+
+/* Save Button */
+#profile-form .btn-success {
+    background: linear-gradient(145deg, #80ff80, #28a745);
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    display: block;
+    width: 100%;
+}
+
+#profile-form .btn-success:hover {
+    background: linear-gradient(145deg, #28a745, #1e7e34);
+    transform: scale(1.05);
+}
+
+#profile-form .btn-success:active {
+    transform: scale(0.98);
+}
+
+/* Label Styling */
+#profile-form label {
+    font-weight: bold;
+    color: #28a745;
+    transition: color 0.3s ease;
+}
+
+#profile-form label:hover {
+    color: #1e7e34;
+}

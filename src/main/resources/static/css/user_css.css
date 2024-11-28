@@ -689,3 +689,21 @@
 .member-names span:hover {
     color: #007bff; /* Change color on hover */
 }
+
+.avatar-tooltip {
+    width: 40px; /* Kích thước vừa đủ */
+    height: 40px;
+    border-radius: 50%; /* Bo góc tròn */
+    border: 5px solid rgba(127, 223, 127, 0.89); /* Viền màu xanh đẹp */
+    object-fit: cover; /* Cắt hình ảnh giữ nguyên tỷ lệ */
+    margin-right: 5px;
+    box-shadow: 0 2px 4px rgba(83, 83, 83, 0.38); /* Thêm bóng mờ */
+    transition: transform 0.2s ease; /* Hiệu ứng khi hover */
+}
+
+.avatar-tooltip:hover {
+    transform: scale(1.1); /* Tăng kích thước nhẹ khi hover */
+    border-color: #e74c3c; /* Đổi viền sang đỏ khi hover */
+}
+
+
