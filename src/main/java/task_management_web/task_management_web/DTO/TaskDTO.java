@@ -1,6 +1,7 @@
 package task_management_web.task_management_web.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,15 +12,16 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TaskDTO {
 
-    private Long id;  // Đổi thành Integer nếu muốn sử dụng int thay vì Long
+    private Long id;
     private String title;
     private String description;
 
     private List<String> memberNames;
 
-    private List<UserDTO> assignedUsers = new ArrayList<>(); ;  // Danh sách người dùng được giao nhiệm vụ
+    private List<TaskAssignedUserDTO> assignedUsers = new ArrayList<>(); ;
 
     @JsonProperty("deadline")
     private LocalDate deadline;
@@ -29,9 +31,8 @@ public class TaskDTO {
 
     private String status;
 
-    private String workAreaId;  // Đổi thành Integer để tương thích với cấu trúc mới
+    private String workAreaId;
 
-    private String workAreaName;  // Tên của khu vực làm việc
+    private String workAreaName;
 
-    // Các thông tin khác của task nếu cần thêm
 }
