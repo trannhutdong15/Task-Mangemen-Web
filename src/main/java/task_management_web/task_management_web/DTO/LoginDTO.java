@@ -13,7 +13,4 @@ public class LoginDTO {
     @NotBlank(message = "Password cannot be empty")
     private String password;
 
-    private int roleId;
-
-    private String workAreaId;
 }

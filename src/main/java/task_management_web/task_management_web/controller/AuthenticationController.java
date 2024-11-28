@@ -11,9 +11,10 @@ import task_management_web.task_management_web.DTO.LoginDTO;
 import task_management_web.task_management_web.DTO.UserDTO;
 import task_management_web.task_management_web.service.AuthenticationService;
 
-import java.util.Collections;
-import java.util.HashMap;
+
 import java.util.Map;
+
+
 
 @Controller
 public class AuthenticationController {
@@ -27,12 +28,14 @@ public class AuthenticationController {
 
     //Log In Page
     @GetMapping("/login")
+
     public String showLoginPage() {
-        return "user/login"; // Thymeleaf sẽ tự động tìm kiếm file login.html trong thư mục templates
+        return "user/login";
     }
 
     //Register Page
     @GetMapping("/register")
+
     public String showRegisterPage() {
         return "user/register";
     }
@@ -40,39 +43,41 @@ public class AuthenticationController {
 
     //Post method for Register
     @PostMapping("/register_validate")
+
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserDTO userDTO) {
 
         if (authenticationService.register(userDTO)) {
             return new ResponseEntity<>("Register successfully", HttpStatus.OK);
         }
+
         return new ResponseEntity<>("Register failed", HttpStatus.BAD_REQUEST);
     }
+
+
 
     // Post method for Login
     @PostMapping("/login_validate")
     public ResponseEntity<Map<String, Object>> loginUser(@Valid @RequestBody LoginDTO loginDTO, HttpServletResponse response) {
-        try {
-            // Call the login service and receive the response map
-            Map<String, Object> result = authenticationService.login(loginDTO);
+        // Call service to validate
+        Map<String, Object> result = authenticationService.login(loginDTO);
 
-            // Create a cookie with the session token
-            Cookie cookie = new Cookie("SESSIONID", result.get("token").toString());
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setMaxAge(60 * 60 * 10); // Set cookie lifespan to 10 hours
+        // Create cookie with session token
+        Cookie cookie = new Cookie("SESSIONID", result.get("token").toString());
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 10); // 10 hours
+        response.addCookie(cookie);
 
-            response.addCookie(cookie); // Add cookie to response
+        // Prepare response for the client
+        Map<String, Object> clientResponse = Map.of(
+                "userId", result.get("userId"),
+                "roleName", result.get("roleName"),
+                "workAreaId", result.get("workAreaId")
+        );
 
-            // Prepare the response for the client
-            Map<String, Object> clientResponse = new HashMap<>();
-            clientResponse.put("roleName", result.get("roleName"));
-            clientResponse.put("workAreaId", result.get("workAreaId"));
-
-            return ResponseEntity.ok(clientResponse); // Return JSON response with roleName and workAreaId
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Collections.singletonMap("error", e.getMessage()));
-        }
+        return ResponseEntity.ok(clientResponse);
     }
+
+
 }
