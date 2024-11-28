@@ -75,7 +75,7 @@ git --version
 Start by cloning the repository to your local machine:
 
 ```bash
-git clone https://github.com/trannhutdong15/Task-Mangemen-Web.git
+git clone https://github.com/trannhutdong15/Task-Mangement-Web.git
 ```
 
 ### 7. Set up the Backend (Spring Boot)
