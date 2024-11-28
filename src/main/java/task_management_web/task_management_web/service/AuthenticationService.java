@@ -17,7 +17,6 @@ import task_management_web.task_management_web.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -34,7 +33,7 @@ public class AuthenticationService {
     private final SessionTokenService sessionTokenService;
 
     //Using logger for exception error
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+    public static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
 
     //Using constructor injection
@@ -75,11 +74,15 @@ public class AuthenticationService {
             if (newuserEntity.getStatus() == null) {
                 newuserEntity.setStatus(UserEntity.Status.PENDING);
             }
+            if(newuserEntity.getAvatarUrl() == null || newuserEntity.getAvatarUrl().isEmpty()) {
+                newuserEntity.setAvatarUrl("src/main/resources/static/plugin/images/default_avatar.jpg");
+            }
 
             //Set user role to Staff when they register an account for first time
             RoleEntity defaultRole = roleRepository.findByRole("Staff")
                     .orElseThrow(() -> new RuntimeException(" Role Staff not found"));
             newuserEntity.setRole(defaultRole);
+
 
 
             //Encoded password before save to database
@@ -101,37 +104,37 @@ public class AuthenticationService {
     // Function Login Logic
     @Transactional
     public Map<String, Object> login(LoginDTO loginDTO) {
-        // Tìm kiếm người dùng trong repository hoặc cơ sở dữ liệu; ném ngoại lệ nếu không tìm thấy
+        // Find User in Database
         UserEntity userEntity = userRepository.findByEmail(loginDTO.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        // Kiểm tra trạng thái tài khoản
+        // Check account status
         if (userEntity.getStatus() != UserEntity.Status.APPROVED) {
             throw new AccountNotApprovedException("Account is not approved");
         }
-
-        // Kiểm tra mật khẩu
+        // Check password
         if (!passwordEncoder.matches(loginDTO.getPassword(), userEntity.getPassword())) {
-            throw new AuthenticationFailedException("Invalid credentials");
+            throw new AuthenticationFailedException("Invalid email or password");
         }
 
-        // Lấy tên vai trò và work area
+        // Retrieve role and work area
         String roleName = userEntity.getRole().getRole();
         String workAreaId = userEntity.getUserWorkAreas().stream()
                 .findFirst()
                 .map(userWorkArea -> userWorkArea.getWorkAreas().getId())
                 .orElse("Not Assigned");
 
-        // Tạo token phiên với username, roleName và workAreaId
-        String token = sessionTokenService.createSessionToken(userEntity.getEmail(), roleName, workAreaId);
+        // Generate session token
+        String token = sessionTokenService.createSessionToken(userEntity.getId(), userEntity.getEmail(), roleName, workAreaId);
 
-        // Chuẩn bị phản hồi dưới dạng bản đồ với token, roleName và workAreaId
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("token", token);
-        responseBody.put("roleName", roleName);
-        responseBody.put("workAreaId", workAreaId);
-
-        return responseBody;
+        // Return essential data
+        return Map.of(
+                "token", token,
+                "roleName", roleName,
+                "workAreaId", workAreaId,
+                "userId", userEntity.getId()
+        );
     }
+
 }
 
