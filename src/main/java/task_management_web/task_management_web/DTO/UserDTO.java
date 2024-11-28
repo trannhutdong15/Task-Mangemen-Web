@@ -2,6 +2,8 @@ package task_management_web.task_management_web.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +14,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 
-    @NotBlank(message = "Id required")
+    @NotNull(message = "Id required")
     private Integer id;
 
     @NotBlank(message = "Your full name is required")

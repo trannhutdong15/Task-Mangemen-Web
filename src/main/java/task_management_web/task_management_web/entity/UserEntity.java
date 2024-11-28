@@ -2,7 +2,9 @@ package task_management_web.task_management_web.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -13,11 +15,13 @@ import java.util.List;
 @Table(name = "Users")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private int id;
+    private Integer id;
 
     private String full_name;
     private String first_name;
@@ -31,27 +35,29 @@ public class UserEntity {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "avatarUrl")
     private String avatarUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER) // Thiết lập mối quan hệ nhiều-nhiều với bảng Role
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnore// Liên kết với cột id của bảng Role
+    @JsonIgnore
     private RoleEntity role;
 
     //Status of a new account
     @Enumerated(EnumType.STRING)
-    private Status status = Status.PENDING;  // Mặc định là "chờ phê duyệt"
+    private Status status = Status.PENDING;
 
     public enum Status {
         PENDING,
         APPROVED,
     }
+
     //Link to UserWorkAreasEntity
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<UserWorkAreasEntity> userWorkAreas;
 
-    @ManyToMany(mappedBy = "assignedTo")
+    @ManyToMany(mappedBy = "assignedTo",cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<TaskEntity> tasks;
 }
