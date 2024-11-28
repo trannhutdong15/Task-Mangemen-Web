@@ -21,20 +21,20 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    // Trang chủ của Admin
+
     @GetMapping("/home")
     public String home() {
         return "admin/home";
     }
 
-    // Lấy danh sách người dùng đang chờ phê duyệt
+
     @GetMapping("/pending-users")
     @ResponseBody
     public List<UserDTO> getPendingUsers() {
         return adminService.getFilteredPendingUsers();
     }
 
-    // Phê duyệt tài khoản
+
     @PutMapping("/approve")
     @ResponseBody
     public String approveAccount(@RequestParam("userId") int userId) {
@@ -42,7 +42,7 @@ public class AdminController {
         return "redirect:/admin/pending-users";
     }
 
-    // Gán vai trò cho tài khoản
+
     @PutMapping("/assign-role")
     @ResponseBody
     public ResponseEntity<String> assignRole(@RequestParam("userId") int userId, @RequestParam("roleId") int roleId) {
@@ -50,7 +50,7 @@ public class AdminController {
         return ResponseEntity.ok("Role assigned successfully");
     }
 
-    // Gán phân khu làm việc cho tài khoản
+
     @PutMapping("/assign-workarea")
     @ResponseBody
     public ResponseEntity<String> assignWorkArea(@RequestParam("userId") int userId,
@@ -66,7 +66,7 @@ public class AdminController {
         }
     }
 
-    // Từ chối (xoá) tài khoản người dùng
+
     @DeleteMapping("/delete")
     @ResponseBody
     public String deleteUser(@RequestParam("userId") int userId) {

@@ -62,7 +62,7 @@ public class AdminService {
                 .collect(Collectors.toList());
     }
 
-    //Assign role function for admin to assign specific role to users
+    //Assign role function for admin to assign a specific role to users
     @Transactional
     public void assignRole(int userId, int roleId) {
         UserEntity user = userRepository.findById(userId)
@@ -76,7 +76,7 @@ public class AdminService {
     }
 
 
-    //Update Users status for them to login (verify accounts)
+    //Update Users status for them to log in (verify accounts)
     @Transactional
     public void updateStatus(int userId, UserEntity.Status status) {
         UserEntity user = userRepository.findById(userId)
@@ -94,16 +94,16 @@ public class AdminService {
         WorkAreasEntity workArea = workAreasRepository.findById(workAreaId)
                 .orElseThrow(() -> new UserNotFoundException("Work area not found with id " + workAreaId));
 
-        // Kiểm tra xem người dùng đã có một UserWorkAreasEntity hiện tại chưa
+        // Check User already have work area or not
         Optional<UserWorkAreasEntity> existingWorkArea = userWorkAreaRepository.findByUser(user);
 
         UserWorkAreasEntity userWorkArea;
 
         if (existingWorkArea.isPresent()) {
-            // Nếu đã tồn tại, ta sẽ cập nhật
+            // If existed, update
             userWorkArea = existingWorkArea.get();
         } else {
-            // Nếu chưa tồn tại, tạo mới
+            // If not, create new data
             userWorkArea = new UserWorkAreasEntity();
             userWorkArea.setUser(user);
         }
@@ -113,39 +113,39 @@ public class AdminService {
         userWorkAreaRepository.save(userWorkArea);
     }
 
-    //If admin reject a user it will remove them out of database
+    //If admin rejects a user, it will remove them out of a database
     @Transactional
     public void deleteUser(int userId) {
         userRepository.deleteById(userId);
     }
 
 
-    // Get list of users info
+    // Get a list of users' info
     @Transactional
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(user -> {
                     UserDTO userDTO = new UserDTO();
 
-                    // Gán các thuộc tính cơ bản
+                    // Attached basic users' information
                     userDTO.setId(user.getId());
                     userDTO.setEmail(user.getEmail());
                     userDTO.setFull_name(user.getFull_name());
                     userDTO.setAddress(user.getAddress());
                     userDTO.setPhoneNumber(user.getPhoneNumber());
 
-                    // Lấy tên vai trò (role name), nếu không có thì gán "Not Assigned"
+                    // Get user roleName if they don't, have to assign Not Assigned
                     String roleName = user.getRole() != null ? user.getRole().getRole() : "Not Assigned";
                     userDTO.setRoleName(roleName);
 
-                    // Lấy tên phân khu (work area name), nếu không có thì gán "Not Assigned"
+                    // Get user work area name
                     String workAreaName = user.getUserWorkAreas().stream()
                             .findFirst() // Lấy phân khu đầu tiên (chỉ có một phân khu cho mỗi người dùng)
                             .map(userWorkArea -> userWorkArea.getWorkAreas().getName())
                             .orElse("Not Assigned");
                     userDTO.setWorkAreaName(workAreaName);
 
-                    return userDTO;
+                    return userDTO; // return a DTO list to controller
                 })
                 .collect(Collectors.toList());
     }
