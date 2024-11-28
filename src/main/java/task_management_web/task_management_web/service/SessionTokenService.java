@@ -12,14 +12,16 @@ public class SessionTokenService {
 
     @Getter
     private static class SessionInfo {
+        private final Integer userId;
         private final String username;
         private final String role;
         private final String workAreaId;
 
-        public SessionInfo(String username, String role, String workAreaId) {
+        public SessionInfo(Integer userId,String username, String role, String workAreaId) {
             this.username = username;
             this.role = role;
             this.workAreaId = workAreaId;
+            this.userId = userId;
         }
 
     }
@@ -27,15 +29,20 @@ public class SessionTokenService {
     private final Map<String, SessionInfo> sessionStore = new ConcurrentHashMap<>(); // Thread-safe storage
 
     // Generate a session token and store it with the associated username, role, and workAreaId
-    public String createSessionToken(String username, String role, String workAreaId) {
+    public String createSessionToken(Integer userId,String username, String role, String workAreaId) {
         String token = UUID.randomUUID().toString(); // Generate a unique token
-        sessionStore.put(token, new SessionInfo(username, role, workAreaId));
+        sessionStore.put(token, new SessionInfo(userId,username, role, workAreaId));
         return token;
     }
 
     // Validate the session token
     public boolean validateToken(String token) {
         return sessionStore.containsKey(token);
+    }
+
+    public Integer getUserIdFromToken(String token) {
+        SessionInfo sessionInfo = sessionStore.get(token);
+        return sessionInfo != null ? sessionInfo.getUserId() : null;
     }
 
     // Retrieve the username associated with a token

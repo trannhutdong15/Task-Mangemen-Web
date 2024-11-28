@@ -10,34 +10,41 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import task_management_web.task_management_web.exception.CustomAccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, CookieFilter cookieFilter) throws Exception {
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http, CookieFilter cookieFilter) throws Exception {
 
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register", "/login_validate", "/register_validate").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/plugin/images/**").permitAll()
-                        .requestMatchers("/home").authenticated()
-                        .requestMatchers("/admin/**").hasAuthority("Admin")
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login") // Đường dẫn đến trang đăng nhập tùy chỉnh
-                        .permitAll()
-                )
-                .addFilterBefore(cookieFilter , UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+            http
+                    .csrf(AbstractHttpConfigurer::disable)
+                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .authorizeHttpRequests(auth -> auth
+                            .requestMatchers("/login", "/register", "/login_validate", "/register_validate").permitAll()
+                            .requestMatchers("/css/**", "/js/**", "/plugin/images/**").permitAll()
+                            .requestMatchers("/home").hasAnyAuthority("Staff", "TeamLeader")
+                            .requestMatchers("/tasks/update/**", "/tasks/delete/**" , "/tasks/create-task" , "/tasks/staff" , "/tasks/details/**" , "/tasks/delete/**").hasAuthority("TeamLeader")
+                            .requestMatchers("/tasks/details/**" , "/tasks/dashboard" , "/tasks/details/**").hasAnyAuthority("Staff", "TeamLeader")
+                            .requestMatchers("/admin/**").hasAuthority("Admin")
+                            .anyRequest().authenticated()
+                    )
+                    .formLogin(form -> form
+                            .loginPage("/login")
+                            .permitAll()
+                    )
+                    .exceptionHandling(exception -> exception
+                            .accessDeniedHandler(new CustomAccessDeniedHandler())
+                    )
+                    .addFilterBefore(cookieFilter, UsernamePasswordAuthenticationFilter.class);
+            return http.build();
+        }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+
 }

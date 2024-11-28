@@ -41,6 +41,7 @@ public class CookieFilter extends OncePerRequestFilter {
 
         // Validate the token and set authentication if valid
         if (token != null && sessionTokenService.validateToken(token)) {
+            Integer userId = sessionTokenService.getUserIdFromToken(token); // Lấy userId từ token
             String username = sessionTokenService.getUsernameFromToken(token);
             String role = sessionTokenService.getRoleFromToken(token);
             String workAreaId = sessionTokenService.getWorkAreaIdFromToken(token);
@@ -54,12 +55,15 @@ public class CookieFilter extends OncePerRequestFilter {
             // Set the security context with the authenticated user
             SecurityContextHolder.getContext().setAuthentication(authToken);
 
-            // Lưu workAreaId vào session để có thể truy xuất ở mọi nơi trong request này
+            if (userId != null) {
+                request.getSession().setAttribute("userId", userId); // Lưu userId vào session
+            }
             if (workAreaId != null) {
-                request.getSession().setAttribute("workAreaId", workAreaId);
+                request.getSession().setAttribute("workAreaId", workAreaId); // Lưu workAreaId vào session
             }
         }
 
         chain.doFilter(request, response);
     }
 }
+
