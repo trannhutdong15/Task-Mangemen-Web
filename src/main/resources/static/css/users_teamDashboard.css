@@ -101,3 +101,344 @@
 #members-section {
     animation: fadeIn 0.5s ease-in-out;
 }
+
+/* Styling cho tiêu đề bảng Task List Wrapper */
+#task-list-wrapper h3 {
+    color: #007bff; /* Màu tiêu đề xanh dương */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling cho bảng Task List Wrapper */
+#task-list-wrapper table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff; /* Màu nền bảng trắng */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow nhẹ */
+    border-radius: 8px; /* Bo góc bảng */
+    overflow: hidden; /* Đảm bảo bo góc */
+}
+
+#task-list-wrapper thead {
+    background-color: #007bff; /* Màu nền của phần tiêu đề bảng */
+}
+
+#task-list-wrapper thead th {
+    color: #ffffff;
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+#task-list-wrapper tbody td {
+    padding: 12px;
+    color: #333333;
+    font-size: 15px;
+    vertical-align: middle;
+    border-top: 1px solid #dddddd;
+}
+
+/* Hiệu ứng hover cho các hàng */
+#task-list-wrapper tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+#task-list-wrapper tbody tr:hover {
+    background-color: #f0f8ff; /* Màu nền xanh nhạt khi hover */
+}
+
+/* Styling cho dòng "Nothing to show" */
+#task-list-wrapper .text-center.font-italic {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+    padding: 20px;
+}
+
+/* Styling cho trạng thái task */
+#task-list-wrapper td.status {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+#task-list-wrapper td.status.in-progress {
+    color: #ffc107; /* Màu vàng cho trạng thái "In Progress" */
+}
+
+#task-list-wrapper td.status.done {
+    color: #28a745; /* Màu xanh lá cho trạng thái "Done" */
+}
+
+#task-list-wrapper td.status.not-started {
+    color: #dc3545; /* Màu đỏ cho trạng thái "Not Started" */
+}
+
+/* Căn giữa tất cả các ô trong bảng */
+#task-list-wrapper table th, #task-list-wrapper table td {
+    text-align: center;
+}
+
+/* Styling cho các nút thao tác Task */
+#task-list-wrapper .task-action-btn {
+    background-color: #007bff; /* Màu xanh dương cho nút */
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px; /* Bo góc nút */
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng hover */
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#task-list-wrapper .task-action-btn:hover {
+    background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+/* Icon cho các nút */
+#task-list-wrapper .task-action-btn::before {
+    content: "\f044"; /* Icon edit từ Font Awesome */
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+    margin-right: 5px;
+}
+
+/* Animation cho bảng khi hiển thị */
+#task-list-wrapper {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Cải thiện giao diện Tooltip */
+ .animated-tooltip {
+     animation: fadeIn 0.3s ease-in-out;
+     background: rgba(0, 0, 0, 0.85);
+     border-radius: 6px;
+     font-size: 0.875rem;
+     padding: 8px 12px;
+ }
+
+.tooltip-inner {
+    background-color: #333; /* Màu nền tooltip */
+    color: #fff; /* Màu chữ tooltip */
+    font-weight: 500;
+    text-align: center;
+}
+
+.tooltip.bs-tooltip-top .arrow::before {
+    border-top-color: rgba(0, 0, 0, 0.85); /* Màu mũi tên */
+}
+
+/* Hiệu ứng Tooltip xuất hiện */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Định dạng avatar */
+.member-avatar {
+    margin: 0 4px;
+    width: 30px;
+    height: 30px;
+    border: 4px solid #ddd;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.member-avatar:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 8px rgba(127, 184, 246, 0.64);
+    border-color: rgba(205, 180, 239, 0.94);
+}
+
+
+/* Badge design */
+.task-badge {
+    margin-right: 8px; /* Giãn cách rộng hơn */
+    font-size: 14px; /* Kích thước chữ lớn hơn */
+    padding: 8px 15px; /* Tăng kích thước badge */
+    border-radius: 12px; /* Bo góc mềm mại */
+    cursor: pointer;
+    transition: transform 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+    display: inline-block;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    background-color: #007bff; /* Màu nền mặc định */
+}
+
+/* Hover animation */
+.task-badge:hover {
+    transform: scale(1.25) translateZ(10px); /* Phóng to và nổi lên 3D */
+    filter: brightness(1.2); /* Sáng hơn khi hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Bóng mờ rõ ràng */
+}
+
+/* 3D bounce animation */
+@keyframes badge-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px); /* Nhấp nhô */
+    }
+}
+
+/* Attach bounce animation */
+.task-badge {
+    animation: badge-bounce 1.2s ease-in-out infinite;
+}
+
+
+.task-badge.not-started {
+    background-color: #ffcc00;
+    color: #4a3800;
+}
+
+.task-badge.in-progress {
+    background-color: #87cefa;
+    color: #0d5295;
+}
+
+.task-badge.completed {
+    background-color: #98fb98;
+    color: #006400;
+}
+
+.text-muted {
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* Task Update model design */
+/* Modal header background gradient */
+/* Task Update modal design */
+/* Modal header background gradient */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 1rem 1.5rem; /* Thêm khoảng cách padding cho header */
+}
+
+/* Modal footer gradient */
+.bg-gradient-light {
+    background: linear-gradient(135deg, #ffffff, #e3e3e3);
+    padding: 1rem 1.5rem; /* Thêm khoảng cách padding cho footer */
+}
+
+/* Input fields and buttons */
+input.form-control, textarea.form-control, select.form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #dee2e6;
+    margin-bottom: 1rem; /* Thêm khoảng cách giữa các input */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for inputs */
+input.form-control:focus, textarea.form-control:focus, select.form-control:focus {
+    box-shadow: 0 0 10px rgba(81, 81, 81, 0.5);
+    transform: scale(1.02);
+}
+
+/* Button hover animation */
+button {
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 0.5rem; /* Thêm khoảng cách trên cho các button */
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Avatars in Assigned Members */
+#update-selectedMembers img {
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-right: 0.5rem; /* Khoảng cách giữa các avatar */
+    margin-bottom: 0.5rem; /* Khoảng cách dưới các avatar */
+}
+
+#update-selectedMembers img:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal animation */
+.modal-content {
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Button styles */
+.btn {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* Manage Members button */
+#update-manageMembersBtn {
+    border: 1px dashed #6a11cb;
+    background-color: #ffffff;
+    color: #6a11cb;
+    margin-top: 1rem; /* Thêm khoảng cách trên nút */
+}
+
+#update-manageMembersBtn:hover {
+    background-color: #6a11cb;
+    color: #ffffff;
+}
+
+/* Spacing adjustments for labels and icons */
+label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Khoảng cách giữa icon và text trong label */
+    margin-bottom: 0.5rem; /* Khoảng cách giữa label và input */
+}
+
+label i {
+    margin-right: 0.5rem; /* Khoảng cách giữa icon và text */
+}
+
+/* Close button in modal header */
+.btn-close {
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* Footer buttons */
+.modal-footer .btn {
+    margin-right: 0.5rem; /* Khoảng cách giữa các nút */
+}
+
+
+
+
+
+
+
+
