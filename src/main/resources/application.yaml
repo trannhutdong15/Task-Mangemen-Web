@@ -1,6 +1,10 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB    # Maximum size of an uploaded file
+      max-request-size: 10MB # Maximum size of a multipart request
   application:
-    name: Task-Mangement
+    name: Task-Management
   datasource:
     url: jdbc:mysql://localhost:3307/work_management_db
     username: root
@@ -10,12 +14,14 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
 server:
   port: 8080
 
