@@ -196,6 +196,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     title: "Logged Out",
                     text: "You have been logged out successfully!",
                 }).then(() => {
+                    document.cookie = "SESSIONID=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                    sessionStorage.removeItem("roleName");
+                    sessionStorage.removeItem("userId");
+                    sessionStorage.removeItem("workAreaId");
+
                     window.location.href = "/login";
                 });
             })

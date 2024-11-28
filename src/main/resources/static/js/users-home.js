@@ -277,6 +277,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
+    document.getElementById("logout-link").addEventListener("click", function () {
+        AppSession.logout();  // Gọi hàm logout khi người dùng nhấn vào logout
+    });
+
     // Event Listener for Dashboard Link
     dashboardLink.addEventListener("click", dashboard);
 

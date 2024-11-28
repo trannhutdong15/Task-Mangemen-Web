@@ -95,10 +95,51 @@ const AppSession = (function () {
         }
     }
 
+    // Hàm logout - Xóa session storage và trì hoãn chuyển hướng
+    function logout() {
+        // Gọi API logout để xóa session ở backend
+        fetch("/api/logout", {
+            method: "POST",
+            credentials: "same-origin",  // Đảm bảo gửi cookie nếu có
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Logout failed");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Nếu logout thành công, xóa dữ liệu sessionStorage
+                sessionStorage.clear();  // Xóa tất cả dữ liệu sessionStorage
+                console.log("Session cleared and user logged out.");
+
+                // Hiển thị thông báo và sau đó chuyển hướng sau 1.5 giây
+                Swal.fire({
+                    icon: "success",
+                    title: "Logged out successfully",
+                    text: "You have been logged out. Redirecting to login page.",
+                }).then(() => {
+                    // Sử dụng setTimeout để trì hoãn 1.5 giây trước khi chuyển hướng
+                    setTimeout(() => {
+                        window.location.href = "/login"; // Chuyển hướng về trang đăng nhập
+                    }, 1500); // Thời gian trì hoãn là 1500ms (1.5 giây)
+                });
+            })
+            .catch((error) => {
+                console.error("Logout error:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Logout Failed",
+                    text: "There was an issue logging out. Please try again.",
+                });
+            });
+    }
+
     return {
         initializeSessionStorage,
         getSessionData,
         validateSession,
+        logout
     };
 })();
 

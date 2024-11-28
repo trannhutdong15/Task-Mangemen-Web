@@ -2,6 +2,7 @@ package task_management_web.task_management_web.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -207,13 +208,11 @@ public class HomeController {
         String originalFileName = Objects.requireNonNull(file.getOriginalFilename()).replaceAll("[^a-zA-Z0-9._-]", "_");
         String fileName = UUID.randomUUID() + "_" + originalFileName;
 
-        // Lấy đường dẫn chính xác tới thư mục static
         Path imageDirectory = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", "static", "plugin", "images");
         if (!Files.exists(imageDirectory)) {
             Files.createDirectories(imageDirectory);
         }
 
-        // Copy file vào thư mục tĩnh
         Path filePath = imageDirectory.resolve(fileName);
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -221,11 +220,9 @@ public class HomeController {
     }
 
     private void scheduleFileDeletion(String fileUrl) {
-        // Tách lấy tên file từ URL
         String fileName = fileUrl.replace("/plugin/images/", "");
         Path filePath = Paths.get("src/main/resources/static/plugin/images", fileName);
 
-        // Lên lịch xóa file sau 1 giờ
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -241,7 +238,7 @@ public class HomeController {
         }, 60 * 60 * 1000); // 1 giờ (đổi giá trị nếu cần)
     }
 
-    //Endpoint to check if image exist in correct folder or not
+    //Endpoint to check if image exists in the correct folder or not
     @GetMapping("/plugin/images/{fileName:.+}")
     @ResponseBody
     public ResponseEntity<?> serveImage(@PathVariable String fileName) {
@@ -258,6 +255,35 @@ public class HomeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to load image.");
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
+        // Lấy session token từ cookie trong request
+        String token = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("SESSIONID".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        // Nếu token tồn tại, xóa nó khỏi sessionStore (server-side)
+        if (token != null) {
+            sessionTokenService.deleteSession(token);
+
+            // Xóa cookie trên client-side
+            Cookie logoutCookie = new Cookie("SESSIONID", null);
+            logoutCookie.setPath("/"); // Đảm bảo path của cookie chính xác
+            logoutCookie.setMaxAge(0); // Set maxAge = 0 để xóa cookie ngay lập tức
+            response.addCookie(logoutCookie);
+        }
+
+        // Trả về thông báo thành công
+        return ResponseEntity.ok("Successfully logged out");
+    }
+
 
 
 }

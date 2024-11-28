@@ -193,4 +193,5 @@ public class UserService {
         return userRepository.findIdByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with email " + email + " not found."));
     }
+
 }
