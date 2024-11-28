@@ -1,5 +1,4 @@
-/* global Swal */
-/** @type {import("sweetalert2")} */
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -130,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Helper function to validate email format
+    // Helper function to validate an email format
     function isValidEmail(email) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
@@ -141,6 +140,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const phonePattern = /^\d{10}$/; // Số điện thoại phải có 10 chữ số
         return phonePattern.test(number);
     }
+
+
     function isValidPassword(password) {
         const minLength = /.{8,}/;
         const hasUpperCase = /[A-Z]/;
