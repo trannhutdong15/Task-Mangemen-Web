@@ -436,6 +436,140 @@ label i {
 }
 
 
+/* Style for Status box with color and animation on hover */
+.task-status {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.task-status.pending {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+.task-status.in-progress {
+    background-color: #5bc0de;
+    color: white;
+}
+
+.task-status.completed {
+    background-color: #5cb85c;
+    color: white;
+}
+
+.task-status:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Add a "clock" icon next to dates */
+.date-column {
+    position: relative;
+    padding-left: 20px; /* Tạo khoảng cách bên trái cho đồng hồ */
+}
+
+.date-column .clock-icon {
+    position: absolute;
+    left: 0; /* Căn chỉnh biểu tượng đồng hồ về phía trái */
+    top: 40%;
+    transform: translateY(-50%); /* Giúp căn giữa theo chiều dọc */
+    font-size: 22px;
+    color: rgba(128, 125, 125, 0.85);
+}
+
+/* Deadline animation */
+@keyframes deadlineAlert {
+    0% {
+        background-color: #f0ad4e;
+    }
+    50% {
+        background-color: #d9534f;
+    }
+    100% {
+        background-color: #f0ad4e;
+    }
+}
+
+.deadline-warning {
+    animation: deadlineAlert 1s infinite;
+}
+
+.deadline {
+    font-weight: bold;
+    color: #d9534f;
+}
+
+/* Container tiêu đề task với hiệu ứng gradient và 3D */
+.task-title-container {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(113, 228, 151, 0.7), rgba(38, 180, 255, 0.7)); /* Gradient giữa hai màu */
+    color: #333;  /* Màu chữ tối */
+    padding: 4px 8px;  /* Thêm padding để tạo không gian */
+    border-radius: 18px;  /* Bo góc mềm mại */
+    font-size: 14px;  /* Kích thước font chữ vừa phải */
+    transition: all 0.3s ease;  /* Transition cho hiệu ứng mượt mà */
+    cursor: pointer;
+
+    max-width: 250px; /* Giới hạn chiều rộng container */
+    margin: 2px 0;  /* Tạo khoảng cách giữa các task */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);  /* Hiệu ứng 3D nhẹ */
+    opacity: 0.9;  /* Độ mờ của nền */
+}
+
+/* Hiệu ứng hover: đổi màu nền, bóng đổ và phóng to */
+.task-title-container:hover {
+    background: linear-gradient(135deg, rgba(113, 228, 151, 1), rgba(38, 180, 255, 1));  /* Tăng độ đậm khi hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);  /* Tăng độ bóng khi hover */
+    transform: scale(1.05);  /* Phóng to nhẹ khi hover */
+    opacity: 1;  /* Độ mờ của nền trở lại bình thường */
+}
+
+/* Icon bên trái (task icon) */
+.task-title-icon {
+    font-size: 18px;
+    margin-right: 8px;
+    color: rgba(0, 0, 0, 0.8);  /* Màu icon */
+    transition: transform 0.3s ease;
+}
+
+/* Animation quay icon khi hover */
+.task-title-container:hover .task-title-icon {
+    transform: rotate(360deg);
+    color: rgba(43, 42, 42, 0.84);
+}
+
+/* Tiêu đề văn bản */
+.task-title-text {
+    font-weight: 600;
+    color: #333;  /* Màu chữ tối */
+    text-overflow: ellipsis; /* Nếu text dài, dùng dấu ... */
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Thêm hiệu ứng hover cho text */
+.task-title-container:hover .task-title-text {
+    color: #0056b3;  /* Màu chữ đổi khi hover */
+    text-decoration: underline; /* Gạch dưới chữ khi hover */
+}
+
+/* Tạo các task có nền khác nhau (task 1 xám, task 2 trắng) */
+.task-row:nth-child(even) .task-title-container {
+    background-color: rgba(64, 228, 57, 0.89);  /* Nền trắng cho các task chẵn */
+}
+
+.task-row:nth-child(odd) .task-title-container {
+    background-color: #f5f5f5;  /* Nền xám nhạt cho các task lẻ */
+}
+
+
+
+
+
 
 
 

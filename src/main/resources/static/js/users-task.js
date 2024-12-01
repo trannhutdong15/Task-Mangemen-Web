@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const roleName = sessionStorage.getItem("roleName");
 
 
-    const editTaskBtn = document.getElementById("edit-task-btn");
-    const deleteTaskBtn = document.getElementById("delete-task-btn");
 
     const updateTaskModal = document.getElementById("updateTaskModal");
     const updateTaskName = document.getElementById("update-taskName");
@@ -88,13 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
         tasksSection.style.display = "block";
         sectionTitle.style.display = "block";
         sectionTitle.innerText = "Tasks";
-         if(roleName !== "TeamLeader"){
-                editTaskBtn.style.display = "none"
-                deleteTaskBtn.style.display = "none";
-         } else {
-             editTaskBtn.style.display = "flex";
-             deleteTaskBtn.style.display = "flex";
-         }
 
 
         fetch(`${tasksEndpoint}?workAreaId=${workAreaId}`)
@@ -136,8 +127,12 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <td>${task.deadline || "N/A"}</td>
                                 <td>${task.status || "Unknown"}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-primary edit-task-btn">Edit</button>
-                                    <button class="btn btn-sm btn-danger delete-task-btn">Delete</button>
+                                    ${roleName === 'TeamLeader' ? `
+                                        <button class="btn btn-sm btn-primary edit-task-btn">Edit</button>
+                                        <button class="btn btn-sm btn-danger delete-task-btn">Delete</button>
+                                                                                ` : `
+                                        <button class="btn btn-sm btn-success submit-task-btn">Submit</button>
+                                                        `}
                                 </td>
                             </tr>`;
                     });

@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
         sectionTitle.style.display = "block";
         sectionTitle.innerText = "Dashboard";
         taskListSection.style.display = "block";
-        if(roleName !== "TeamLeader"){
+
+        // Điều chỉnh hiển thị nút thêm Task cho TeamLeader
+        if (roleName !== "TeamLeader") {
             addTaskBtn.style.display = "none";
         } else {
             addTaskBtn.style.display = "flex";
@@ -73,56 +75,96 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!tasks || tasks.length === 0) {
                     // Hiển thị nếu không có Task
                     taskTableBody.innerHTML = `
-                        <tr>
-                            <td colspan="7" class="text-center font-italic">Nothing to show</td>
-                        </tr>`;
+                    <tr>
+                        <td colspan="7" class="text-center font-italic">Nothing to show</td>
+                    </tr>`;
                     return;
                 }
 
                 // Hiển thị danh sách Task
                 tasks.forEach(task => {
+                    // Avatar của các thành viên trong Task
                     const memberAvatars = (task.assignedUsers || []).map(user => `
-                        <img 
-                            src="${user.avatarUrl || '/plugin/images/default_avatar.jpg'}" 
-                            alt="${user.full_name}" 
-                            class="avatar-tooltip rounded-circle" 
-                            data-bs-toggle="tooltip" 
-                            title="${user.full_name}" 
-                            width="30" 
-                            height="30" 
-                            style="margin-right: 5px;"
-                            onerror="this.src='/plugin/images/default_avatar.jpg';"
-                        >`).join("");
+                    <img 
+                        src="${user.avatarUrl || '/plugin/images/default_avatar.jpg'}" 
+                        alt="${user.full_name}" 
+                        class="avatar-tooltip rounded-circle" 
+                        data-bs-toggle="tooltip" 
+                        title="${user.full_name}" 
+                        width="30" 
+                        height="30" 
+                        style="margin-right: 5px;"
+                        onerror="this.src='/plugin/images/default_avatar.jpg';"
+                    >`).join("");
 
+                    // Xử lý trạng thái task
+                    let statusClass = '';
+                    switch (task.status) {
+                        case 'Pending':
+                            statusClass = 'pending';
+                            break;
+                        case 'In Progress':
+                            statusClass = 'in-progress';
+                            break;
+                        case 'Completed':
+                            statusClass = 'completed';
+                            break;
+                        default:
+                            statusClass = '';
+                            break;
+                    }
+
+                    // Kiểm tra deadline gần đến
+                    const deadlineDate = new Date(task.deadline);
+                    const currentDate = new Date();
+                    const timeDiff = deadlineDate - currentDate;
+                    const deadlineClass = timeDiff <= 86400000 ? 'deadline-warning' : ''; // Nếu deadline còn dưới 1 ngày
+
+                    // Tạo row của task với biểu tượng đồng hồ và hiệu ứng deadline
                     const taskRow = `
-                        <tr>
-                            <td>${task.id}</td>
-                            <td>${task.title}</td>
-                            <td>${memberAvatars || "<span>No Members Assigned</span>"}</td>
-                            <td>${task.createdAt || "N/A"}</td>
-                            <td>${task.deadline || "N/A"}</td>
-                            <td>${task.status || "Unknown"}</td>
-                        </tr>`;
+                    <tr data-task-id="${task.id}" data-assigned-users='${JSON.stringify(task.assignedUsers || [])}'>
+                        <td>${task.id}</td>
+                        <td class="task-title">
+                            <div class="task-title-container">
+                                <span class="task-title-icon"><i class="fas fa-tasks"></i></span>
+                                <span class="task-title-text">${task.title}</span>
+                            </div>
+                        </td>
+                        <td>${memberAvatars || "<span>No Members Assigned</span>"}</td>
+                        <td class="date-column">
+                            <i class="fas fa-clock clock-icon"></i>
+                            ${task.createdAt || "N/A"}
+                        </td>
+                        <td class="date-column">
+                            <i class="fas fa-clock clock-icon"></i>
+                            <span class="deadline ${deadlineClass}">${task.deadline || "N/A"}</span>
+                        </td>
+                        <td>
+                            <span class="task-status ${statusClass}">${task.status || "Unknown"}</span>
+                        </td>
+                    </tr>`;
+
                     taskTableBody.innerHTML += taskRow;
                 });
 
-                // Khởi tạo tooltip
+                // Khởi tạo tooltip cho avatars
                 initializeTooltips();
             })
             .catch(error => {
                 console.error("Error fetching tasks:", error);
                 taskTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center font-italic text-danger">An error occurred while loading tasks.</td>
-                    </tr>`;
+                <tr>
+                    <td colspan="7" class="text-center font-italic text-danger">An error occurred while loading tasks.</td>
+                </tr>`;
             });
     }
 
-    // Initialize tooltips
+// Initialize tooltips
     function initializeTooltips() {
         const tooltipTriggerList = Array.from(document.querySelectorAll(".avatar-tooltip"));
         tooltipTriggerList.forEach(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
     }
+
 
     // Show create a task form
     addTaskBtn?.addEventListener("click", function () {
