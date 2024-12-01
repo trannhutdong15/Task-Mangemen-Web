@@ -41,12 +41,13 @@ public class CookieFilter extends OncePerRequestFilter {
 
         // Validate the token and set authentication if valid
         if (token != null && sessionTokenService.validateToken(token)) {
-            Integer userId = sessionTokenService.getUserIdFromToken(token); // Lấy userId từ token
+            // Get all necessary information from the session token
+            Integer userId = sessionTokenService.getUserIdFromToken(token); // Get userId from token
             String username = sessionTokenService.getUsernameFromToken(token);
             String role = sessionTokenService.getRoleFromToken(token);
             String workAreaId = sessionTokenService.getWorkAreaIdFromToken(token);
 
-            // Tạo danh sách quyền hạn với role
+            // Create the authorities based on the user's role
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(username, null, Collections.singletonList(authority));
@@ -55,15 +56,21 @@ public class CookieFilter extends OncePerRequestFilter {
             // Set the security context with the authenticated user
             SecurityContextHolder.getContext().setAuthentication(authToken);
 
+            // Store all session data into HttpSession
             if (userId != null) {
-                request.getSession().setAttribute("userId", userId); // Lưu userId vào session
+                request.getSession().setAttribute("userId", userId); // Store userId in session
+            }
+            if (username != null) {
+                request.getSession().setAttribute("username", username); // Store username in session
+            }
+            if (role != null) {
+                request.getSession().setAttribute("role", role); // Store role in session
             }
             if (workAreaId != null) {
-                request.getSession().setAttribute("workAreaId", workAreaId); // Lưu workAreaId vào session
+                request.getSession().setAttribute("workAreaId", workAreaId); // Store workAreaId in session
             }
         }
 
-        chain.doFilter(request, response);
+        chain.doFilter(request, response); // Continue processing the request
     }
 }
-

@@ -7,10 +7,7 @@ import task_management_web.task_management_web.DTO.LoginDTO;
 import task_management_web.task_management_web.DTO.UserDTO;
 import task_management_web.task_management_web.entity.RoleEntity;
 import task_management_web.task_management_web.entity.UserEntity;
-import task_management_web.task_management_web.exception.AccountAlreadyExistException;
-import task_management_web.task_management_web.exception.AccountNotApprovedException;
-import task_management_web.task_management_web.exception.AuthenticationFailedException;
-import task_management_web.task_management_web.exception.UserNotFoundException;
+import task_management_web.task_management_web.exception.*;
 import task_management_web.task_management_web.mapper.UserMapper;
 import task_management_web.task_management_web.repository.RoleRepository;
 import task_management_web.task_management_web.repository.UserRepository;
@@ -75,17 +72,17 @@ public class AuthenticationService {
                 newuserEntity.setStatus(UserEntity.Status.PENDING);
             }
             if(newuserEntity.getAvatarUrl() == null || newuserEntity.getAvatarUrl().isEmpty()) {
-                newuserEntity.setAvatarUrl("src/main/resources/static/plugin/images/default_avatar.jpg");
+                newuserEntity.setAvatarUrl("/plugin/images/default_avatar.jpg");
             }
 
-            //Set user role to Staff when they register an account for first time
+            //Set user role to Staff when they register an account for the first time
             RoleEntity defaultRole = roleRepository.findByRole("Staff")
-                    .orElseThrow(() -> new RuntimeException(" Role Staff not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException(" Role Staff not found"));
             newuserEntity.setRole(defaultRole);
 
 
 
-            //Encoded password before save to database
+            //Encoded password before save to a database
             newuserEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             newuserEntity.setCreatedAt(LocalDateTime.now());
 

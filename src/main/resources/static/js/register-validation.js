@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const registerForm = document.getElementById("registerForm");
 
@@ -47,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Validate Phone Number
-        const phoneNumber = document.getElementById("phone_number");
+        const phoneNumber = document.getElementById("phoneNumber");
         if (!isValidPhoneNumber(phoneNumber.value.trim())) {
             showError(phoneNumber, "Please enter a valid phone number.");
             valid = false;
@@ -67,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 last_name: lastName.value.trim(),
                 email: email.value.trim(),
                 password: password.value.trim(),
-                phone_number: phoneNumber.value.trim(),
+                phoneNumber: phoneNumber.value.trim(),
                 address: address.value.trim()
             };
 
@@ -80,9 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                 .then(response => {
                     if (response.ok) {
-                        Swal.fire({
-                            title: "Success!",
-                        })
                         // Hiển thị thông báo thành công bằng SweetAlert2
                         Swal.fire({
                             icon: 'success',
@@ -95,10 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else if (response.status === 409) {
                         return response.text().then(message => {
                             Swal.fire({
-                            icon: 'error',
-                            title: 'Registration Failed!',
-                            text: message,
-                            confirmButtonText: 'OK'
+                                icon: 'error',
+                                title: 'Registration Failed!',
+                                text: message,
+                                confirmButtonText: 'OK'
                             });
                         });
                     }
@@ -135,13 +129,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return emailPattern.test(email);
     }
 
-    // Helper function to validate phone number format
+    // Helper function to validate a phone number format
     function isValidPhoneNumber(number) {
         const phonePattern = /^\d{10}$/; // Số điện thoại phải có 10 chữ số
         return phonePattern.test(number);
     }
 
-
+    // Helper function to validate password
     function isValidPassword(password) {
         const minLength = /.{8,}/;
         const hasUpperCase = /[A-Z]/;

@@ -4,10 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import task_management_web.task_management_web.DTO.TaskDTO;
 import task_management_web.task_management_web.DTO.UserDTO;
 import task_management_web.task_management_web.entity.UserEntity;
+import task_management_web.task_management_web.exception.ResourceNotFoundException;
 import task_management_web.task_management_web.exception.UserNotFoundException;
 import task_management_web.task_management_web.service.AdminService;
+import task_management_web.task_management_web.service.TaskService;
 
 import java.util.List;
 
@@ -16,9 +19,11 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final TaskService taskService;
 
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, TaskService taskService) {
         this.adminService = adminService;
+        this.taskService = taskService;
     }
 
 
@@ -72,6 +77,18 @@ public class AdminController {
     public String deleteUser(@RequestParam("userId") int userId) {
         adminService.deleteUser(userId);
         return "redirect:/admin/pending-users";
+    }
+
+    @GetMapping("/getTasks")
+    @ResponseBody
+    public ResponseEntity<List<TaskDTO>> getTasks() {
+        List<TaskDTO> tasks = taskService.getAllTasks();
+
+        // Nếu không tìm thấy task, ném exception
+        if (tasks.isEmpty()) {
+            throw new ResourceNotFoundException("No tasks found.");
+        }
+        return ResponseEntity.ok(tasks);
     }
 
     @GetMapping("/users")

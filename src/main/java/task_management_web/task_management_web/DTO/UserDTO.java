@@ -1,8 +1,10 @@
 package task_management_web.task_management_web.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDTO {
 
-    @NotNull(message = "Id required")
     private Integer id;
 
     @NotBlank(message = "Your full name is required")
@@ -29,13 +30,15 @@ public class UserDTO {
     @NotBlank(message = "Your last name is required")
     private String last_name;
 
-    @NotBlank(message = "Email is required")
+    @NotNull(message = "Email cannot be null")
+    @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank(message = "Password is required")
+    @NotNull(message = "Password cannot be null")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
-    @NotBlank(message = "Your phone number is required")
+    @NotNull(message = "Phone number cannot be null")
     private String phoneNumber;
 
     private String address;

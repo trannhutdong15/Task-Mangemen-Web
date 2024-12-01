@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const addStaffBtn = document.getElementById("add-staff-btn");
 
     let selectedStaff = [];
-    const { workAreaId } = AppSession.getSessionData(); // Lấy workAreaId từ session
+    const { roleName,workAreaId } = AppSession.getSessionData(); // Lấy workAreaId từ session
 
     // Validate session data
-    if (!workAreaId) {
+    if (!workAreaId && !roleName) {
         console.error("Missing required session data: workAreaId!");
         Swal.fire({
             icon: "error",
@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         return;
     }
-
     // Hide all sections
     function hideAllSections() {
         const sections = [
@@ -59,7 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
         sectionTitle.style.display = "block";
         sectionTitle.innerText = "Dashboard";
         taskListSection.style.display = "block";
-        addTaskBtn.style.display = "block";
+        if(roleName !== "TeamLeader"){
+            addTaskBtn.style.display = "none";
+        } else {
+            addTaskBtn.style.display = "flex";
+        }
 
         // Fetch danh sách Task
         fetch(`/tasks/dashboard?workAreaId=${workAreaId}`)

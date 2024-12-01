@@ -2,7 +2,7 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box; /* Include padding and border in element's width and height */
+    box-sizing: border-box;
 }
 
 /* Wrapper for entire page */
@@ -16,7 +16,7 @@
 
 /* Sidebar wrapper */
 #sidebar-wrapper {
-    width: 240px; /* Fixed width for sidebar */
+    width: 240px;
     position: fixed;
     top: 0;
     left: 0;
@@ -24,13 +24,13 @@
     background: linear-gradient(145deg, #d4e3fc, #b0c9f4);
     padding-top: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure sidebar is always above the page content */
+    z-index: 1000;
     transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 /* Collapsible Sidebar */
 #wrapper.toggled #sidebar-wrapper {
-    width: 0; /* Collapsed sidebar width */
+    width: 0;
     overflow: hidden;
 }
 
@@ -102,7 +102,7 @@
 .list-group-item i {
     margin-right: 12px;
     font-size: 1.2rem;
-    color: #4a90e2; /* Changed to match theme */
+    color: #4a90e2;
 }
 
 /* Page content wrapper */
@@ -125,7 +125,7 @@
     z-index: 999;
     transition: all 0.3s ease;
     color: #333;
-    box-shadow: none; /* Remove top navbar shadow */
+    box-shadow: none;
 }
 
 /* Search bar container */
@@ -135,14 +135,20 @@
     max-width: 300px;
     margin-left: auto;
     margin-right: 20px;
+    display: flex;
+    align-items: center; /* Flexbox alignment */
 }
 
 /* Search input styling */
 .search-form input {
     width: 100%;
+    height: 40px; /* Fixed height */
+    padding-right: 35px; /* Adjust space for the icon */
+    padding-left: 15px; /* Padding on the left */
     border-radius: 20px;
-    padding-right: 30px;
     border: 1px solid #6a5acd;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 /* Search icon inside input field */
@@ -152,7 +158,9 @@
     top: 50%;
     transform: translateY(-50%);
     color: #6a5acd;
+    font-size: 18px;
 }
+
 
 /* Task rows styling for dashboard */
 .task-row {
@@ -209,42 +217,45 @@
     transform: scale(1.05);
 }
 
-/* User Profile Dropdown */
+/* Style cho phần nav-profile */
 .nav-profile {
-    position: relative;
+    position: relative; /* Để menu dropdown hiển thị bên dưới avatar */
     cursor: pointer;
 }
 
+/* Dropdown (Profile & Logout) */
 .nav-profile-dropdown {
-    display: none;
-    position: absolute;
+    display: none; /* Ẩn menu mặc định */
+    position: absolute; /* Đặt menu ở vị trí tuyệt đối */
+    top: 100%; /* Đặt menu ngay dưới avatar */
     right: 0;
-    top: 100%; /* Adjusted to make dropdown immediately visible without scroll */
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    z-index: 1000;
-    width: 150px;
-    transform-origin: top right;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    transform: scaleY(0);
-    white-space: nowrap; /* Prevent dropdown items from wrapping */
+    background-color: #fff; /* Màu nền của menu */
+    border: 1px solid #ddd; /* Viền nhẹ cho menu */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng cho menu */
+    border-radius: 5px; /* Bo tròn các góc của menu */
+    width: 150px; /* Chiều rộng menu */
+    z-index: 9999; /* Đảm bảo dropdown luôn nổi lên trên */
 }
 
+/* Hiển thị dropdown khi hover vào .nav-profile */
 .nav-profile:hover .nav-profile-dropdown {
-    display: block;
-    opacity: 1;
-    transform: scaleY(1);
+    display: block; /* Hiển thị menu khi hover */
 }
 
+/* Style cho các liên kết trong dropdown */
 .nav-profile-dropdown a {
     display: block;
-    padding: 10px 15px;
-    color: #333;
+    padding: 10px;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    color: #333; /* Màu chữ mặc định */
+    font-size: 14px;
+    transition: background-color 0.3s ease; /* Hiệu ứng mượt mà khi hover */
+}
+
+/* Màu nền khi hover vào link */
+.nav-profile-dropdown a:hover {
+    background-color: #f5f5f5; /* Màu nền khi hover */
+    color: #5fad5f; /* Màu chữ khi hover */
 }
 
 .nav-profile-dropdown a:hover {
@@ -378,6 +389,31 @@
     padding: 4px 10px; /* Giảm kích thước nút */
     border-radius: 6px; /* Bo góc cho mềm mại */
 }
+
+/* Tooltip CSS */
+.tooltip-inner {
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+/* Avatar styling */
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* Container for multiple avatars */
+.members-container {
+    display: flex;
+    gap: 5px;
+}
+
 
 
 

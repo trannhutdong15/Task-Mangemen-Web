@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     data-bs-toggle="tooltip" 
                                     title="Name: ${task.taskName} | Status: ${task.taskStatus} | Deadline: ${task.taskDeadline || 'N/A'}"
                                 >
-                                    ${statusIcon} Task #${task.taskId}
+                                    ${statusIcon} Task #${task.taskId || "Not Assigned"}
                                 </span>`;
                             }).join("")
                             : `<span class="text-muted">No Task Assigned</span>`; // Nếu không có Task nào

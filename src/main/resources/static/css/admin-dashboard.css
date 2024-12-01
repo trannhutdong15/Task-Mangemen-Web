@@ -1,0 +1,99 @@
+/* Dashboard Section */
+#dashboard-section {
+    background: linear-gradient(135deg, rgba(85, 0, 255, 0.2), rgba(0, 128, 255, 0.2)); /* Gradient màu tím xanh nhẹ */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng mờ tạo chiều sâu */
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Khi hover, background sẽ tối hơn */
+#dashboard-section:hover {
+    background: linear-gradient(135deg, rgba(85, 0, 255, 0.3), rgba(0, 128, 255, 0.3));
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Task row */
+.task-row {
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 6px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng cho task */
+    transition: all 0.3s ease;
+}
+
+.task-row:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Làm nổi bật khi hover */
+}
+
+/* Style các tiêu đề */
+h5 {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Định dạng cho các cột */
+.col-3, .col-2, .col-1 {
+    padding: 8px 10px;
+}
+
+.task-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.task-status {
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Màu cho các ngày tháng và icon */
+.task-date {
+    font-size: 14px;
+    color: #555;
+}
+
+.task-date i {
+    margin-right: 5px;
+    color: #007bff;  /* Màu icon xanh */
+}
+
+/* Tạo hộp bo góc cho Work Area */
+.work-area {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.work-area-box {
+    background-color: #f0f8ff;
+    color: #333;
+    border-radius: 12px;
+    padding: 5px 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.work-area-box:hover {
+    background-color: rgba(150, 213, 234, 0.89);
+}
+
+/* Biểu tượng avatar của user */
+.members-container img.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* Tooltip style */
+.tooltip-inner {
+    background-color: #333 !important;
+    color: #fff !important;
+    font-size: 12px !important;
+}

@@ -15,8 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const tasksEndpoint = "/tasks/dashboard";
 
     const workAreaId = sessionStorage.getItem("workAreaId");
+    const roleName = sessionStorage.getItem("roleName");
 
 
+    const editTaskBtn = document.getElementById("edit-task-btn");
+    const deleteTaskBtn = document.getElementById("delete-task-btn");
 
     const updateTaskModal = document.getElementById("updateTaskModal");
     const updateTaskName = document.getElementById("update-taskName");
@@ -85,6 +88,13 @@ document.addEventListener("DOMContentLoaded", function () {
         tasksSection.style.display = "block";
         sectionTitle.style.display = "block";
         sectionTitle.innerText = "Tasks";
+         if(roleName !== "TeamLeader"){
+                editTaskBtn.style.display = "none"
+                deleteTaskBtn.style.display = "none";
+         } else {
+             editTaskBtn.style.display = "flex";
+             deleteTaskBtn.style.display = "flex";
+         }
 
 
         fetch(`${tasksEndpoint}?workAreaId=${workAreaId}`)

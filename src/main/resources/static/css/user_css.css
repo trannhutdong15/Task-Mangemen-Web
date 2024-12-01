@@ -124,10 +124,12 @@
 }
 
 /* Top navigation adjustments */
+
 .navbar {
     width: 100%;
     background-color: transparent;
     z-index: 999;
+    padding: 10px;
     transition: all 0.3s ease;
     color: #333;
     box-shadow: none;
@@ -137,27 +139,35 @@
 .search-form {
     position: relative;
     width: 100%;
-    max-width: 300px;
+    max-width: 300px;  /* Giới hạn chiều rộng */
+    margin-top: 15px; /* Khoảng cách từ trên */
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: auto;  /* Căn giữa theo chiều ngang */
+    display: flex;
+    justify-content: center;  /* Căn giữa thanh tìm kiếm */
+    align-items: center;  /* Căn giữa theo chiều dọc */
+    /* Không cần margin-top: auto; vì bạn đã có margin-top: 15px; */
 }
 
 /* Search input styling */
 .search-form input {
     width: 100%;
     border-radius: 20px;
-    padding-right: 30px;
+    padding-right: 40px;  /* Khoảng trống cho icon */
+    padding-left: 15px;   /* Khoảng cách trái cho văn bản */
     border: 1px solid #5fad5f;
     transition: border-color 0.3s ease;
+    box-sizing: border-box;  /* Đảm bảo padding không làm thay đổi chiều rộng của input */
 }
 
 /* Search icon inside input field */
 .search-form .search-icon {
     position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 10px;  /* Đảm bảo icon nằm sát bên phải */
+    top: 40%;  /* Căn giữa theo chiều dọc */
+    transform: translateY(-50%);  /* Đảm bảo căn giữa chính xác */
     color: #5fad5f;
+    font-size: 18px;  /* Điều chỉnh kích thước biểu tượng */
 }
 
 /* Task rows styling for dashboard */
@@ -322,15 +332,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;  /* Đặt nó cách phần tiêu đề dashboard một chút */
+    margin-top: 16px;  /* Đặt nó cách phần tiêu đề dashboard một chút */
     max-width: 300px; /* Giới hạn chiều rộng */
     width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Nút Add Task */
+/* Ẩn nút Add Task mặc định */
 .add-task-btn {
+    display: none; /* Ẩn nút */
     background-color: #90EE90; /* Màu xanh lá nhạt */
     color: white;
     font-size: 16px;
@@ -338,7 +349,6 @@
     border: none;
     border-radius: 12px; /* Bo góc tròn */
     cursor: pointer;
-    display: flex;
     align-items: center;
     gap: 8px; /* Khoảng cách giữa icon và chữ */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Tạo bóng cho nút */

@@ -27,7 +27,6 @@ public interface TaskMapper {
     // Ánh xạ từ TaskDTO sang TaskEntity
     @Mappings({
             @Mapping(source = "assignedUsers", target = "assignedTo", qualifiedByName = "mapToUserEntities"),
-            @Mapping(target = "subTasks", ignore = true), // Bỏ qua các trường không cần thiết
             @Mapping(target = "workArea", ignore = true) // Thiết lập workArea trong Service
     })
     TaskEntity taskDTOToTaskEntity(TaskDTO taskDTO);

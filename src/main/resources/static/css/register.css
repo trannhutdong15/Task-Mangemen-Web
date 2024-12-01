@@ -1,50 +1,28 @@
+/* Màu nền gradient cho body */
 body {
     background: linear-gradient(135deg, rgba(172, 142, 195, 0.87) 0%, #7596b6 100%);
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+/* Cấu trúc container đăng ký */
 .register-container {
-    max-width: 500px;
-    margin: 40px auto;
     background: #fff;
     border-radius: 15px;
     padding: 40px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
+    max-width: 500px; /* Giới hạn độ rộng cho container */
+    margin: 40px auto; /* Căn giữa container */
 }
 
-.is-invalid {
-    border-color: red;
-}
-
-.form-group {
-    position: relative;
-}
-
-.form-group input {
-    padding-right: 35px; /* Chừa khoảng trống bên phải cho icon */
-    height: 40px; /* Điều chỉnh độ cao của input nếu cần */
-}
-
-.info-icon {
-    position: absolute;
-    right: 10px; /* Đặt icon sát bên phải */
-    top: 71%;
-    transform: translateY(-50%); /* Căn giữa icon theo chiều dọc */
-    width: 16px; /* Kích thước của icon */
-    height: 16px;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.form-control:focus + .info-icon {
-    display: none; /* Ẩn icon khi người dùng nhấp vào trường */
-}
-
+/* Hiệu ứng hover cho container */
 .register-container:hover {
     transform: translateY(-10px);
 }
 
+/* Căn chỉnh văn bản */
 h2 {
     text-align: center;
     font-weight: bold;
@@ -52,22 +30,44 @@ h2 {
     color: #343a40;
 }
 
+/* Thiết kế label của các input */
 .form-group label {
     font-weight: bold;
     color: #495057;
 }
 
-.form-control {
+/* Cải thiện kiểu của form-control */
+.custom-form-control {
     border: 2px solid #ced4da;
     border-radius: 8px;
+    padding-right: 35px; /* Khoảng cách cho icon */
+    height: 40px;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.form-control:focus {
+/* Hiệu ứng focus khi người dùng click vào input */
+.custom-form-control:focus {
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+/* Định dạng icon trong trường mật khẩu */
+.info-icon {
+    position: absolute;
+    right: 10px;
+    top: 73%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Đảm bảo icon mật khẩu không bị hiển thị khi người dùng nhấp vào input */
+.form-control:focus + .password-info .info-icon {
+    display: none;
+}
+
+/* Cải thiện nút bấm */
 .btn-primary {
     background-color: #007bff;
     border: none;
@@ -82,6 +82,7 @@ h2 {
     background-color: #0056b3;
 }
 
+/* Cải thiện đường link quay lại đăng nhập */
 .login-link {
     text-align: center;
     margin-top: 20px;
@@ -96,4 +97,64 @@ h2 {
 .login-link a:hover {
     color: #0056b3;
     text-decoration: underline;
+}
+
+/* Thêm khoảng cách dưới các input */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Cải thiện khoảng cách của button */
+button.btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Đảm bảo container chiếm toàn bộ chiều cao */
+.container {
+    min-height: 100vh;
+}
+
+/* Cải thiện các trường hợp lỗi */
+.is-invalid {
+    border-color: red;
+}
+
+/* Thiết kế lại icon mật khẩu */
+.password-info {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.error-message {
+    font-size: 12px;
+    color: red;
+    margin-left: 10px;
+    display: none;
+}
+
+.password-info .error-message.show {
+    display: block;
+}
+
+.info-icon {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Hiển thị icon cảnh báo khi người dùng nhập mật khẩu sai */
+.password-info .info-icon {
+    display: block;
+}
+
+/* Ẩn thông báo lỗi khi mật khẩu hợp lệ */
+.password-info .error-message {
+    display: none;
 }

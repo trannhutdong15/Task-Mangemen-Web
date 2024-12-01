@@ -123,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch((error) => console.error("Error loading users:", error));
     });
 
-    // Xử lý ẩn `users-section` khi chuyển sang trang `Pending Requests`
     document.getElementById("pending-requests-link").addEventListener("click", function (event) {
         event.preventDefault();
         document.getElementById("section-title").innerText = "Pending Requests";

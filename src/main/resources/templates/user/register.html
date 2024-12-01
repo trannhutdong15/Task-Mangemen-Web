@@ -1,67 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <!-- Liên kết Bootstrap CSS từ CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/register.css}">
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-
-
-
+    <!-- Liên kết CSS tùy chỉnh -->
+    <link rel="stylesheet" href="css/register.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-light">
-<div class="register-container">
-    <div class="form-wrapper">
-        <h2>Create Your Account</h2>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="register-container shadow-lg">
+        <h2 class="text-center text-dark mb-4">Create Your Account</h2>
         <form id="registerForm" novalidate>
-            <div class="form-group">
-                <label for="full_name">Full Name</label>
-                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name" required>
+            <div class="form-group mb-3">
+                <label for="full_name" class="form-label">Full Name</label>
+                <input type="text" class="form-control custom-form-control" id="full_name" name="full_name" placeholder="Enter your full name" required>
             </div>
-            <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required>
+            <div class="form-group mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control custom-form-control" id="first_name" name="first_name" placeholder="Enter your first name" required>
             </div>
-            <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name" required>
+            <div class="form-group mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control custom-form-control" id="last_name" name="last_name" placeholder="Enter your last name" required>
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            <div class="form-group mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control custom-form-control" id="email" name="email" placeholder="Enter your email" required>
             </div>
-            <div class="form-group" style="position: relative;">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+            <div class="form-group mb-3 position-relative">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control custom-form-control" id="password" name="password" placeholder="Create a password" required>
                 <img src="/plugin/images/info_icon.jpg" alt="Info" class="info-icon" title="Password must be over 8 characters, contain at least one uppercase letter, and one special character.">
                 <div id="passwordError" class="error-message" style="display: none; color: red;"></div>
             </div>
-            <div class="form-group">
-                <label for="phoneNumber">Phone Number</label>
-                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
+            <div class="form-group mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input type="text" class="form-control custom-form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
             </div>
-            <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Enter your address" required>
+            <div class="form-group mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control custom-form-control" id="address" name="address" placeholder="Enter your address" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Request Sign Up</button>
-            <div class="text-center mt-3">
-                <a th:href="@{/login}" class="btn btn-link">Back to Login</a>
+            <button type="submit" class="btn btn-primary w-100 mt-4">Request Sign Up</button>
+            <div class="login-link text-center mt-3">
+                <a href="/login" class="text-decoration-none">Back to Login</a>
             </div>
         </form>
     </div>
 </div>
 
-
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Liên kết với các file JS -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<!-- Bootstrap 5.2+ JavaScript Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script th:src="@{/js/register-validation.js}"></script>
+<script src="/js/register-validation.js"></script>
 </body>
 </html>

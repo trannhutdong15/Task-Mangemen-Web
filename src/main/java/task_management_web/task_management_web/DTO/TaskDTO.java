@@ -21,7 +21,7 @@ public class TaskDTO {
 
     private List<String> memberNames;
 
-    private List<TaskAssignedUserDTO> assignedUsers = new ArrayList<>(); ;
+    private List<TaskAssignedUserDTO> assignedUsers = new ArrayList<>();
 
     @JsonProperty("deadline")
     private LocalDate deadline;

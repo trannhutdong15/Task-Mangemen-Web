@@ -67,6 +67,7 @@ public class AuthenticationController {
         cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 10); // 10 hours
+
         response.addCookie(cookie);
 
         // Prepare response for the client

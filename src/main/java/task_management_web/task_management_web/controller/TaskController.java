@@ -72,7 +72,6 @@ public class TaskController {
 
 
     //Update task information endpoint (only for TeamLeader)
-    @PreAuthorize("hasAuthority('TeamLeader')")
     @PutMapping("/update/{taskId}")
     @ResponseBody
     public ResponseEntity<TaskDTO> updateTask(

@@ -14,8 +14,7 @@ public class SubTaskDTO {
     private int progressPercentage;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long assignedUserId; // Chỉ cần ID người thực hiện
+    private Long assignedUserId;
 
-    // Nếu cần có thể thêm tên người thực hiện (nếu bạn muốn trả về thông tin đầy đủ)
     private String assignedUserName;
 }

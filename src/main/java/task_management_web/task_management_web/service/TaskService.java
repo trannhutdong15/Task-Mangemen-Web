@@ -260,5 +260,16 @@ public class TaskService {
         // Lastly delete a task
         taskRepository.delete(taskEntity);
     }
+
+    //Fetch all tasks from all work areas (for Admin purpose)
+    public List<TaskDTO> getAllTasks() {
+        // Fetch all tasks from the repository
+        List<TaskEntity> tasks = taskRepository.findAll();
+
+        // Convert each TaskEntity to TaskDTO using TaskMapper
+        return tasks.stream()
+                .map(taskMapper::taskToTaskDTO)
+                .collect(Collectors.toList());
+    }
 }
 
