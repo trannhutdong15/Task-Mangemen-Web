@@ -11,6 +11,9 @@ Before you begin, make sure you have the following software installed:
 3. **[MySQL](https://dev.mysql.com/downloads/)** or another relational database (PostgreSQL, etc.)
 4. **[IntelliJ IDEA](https://www.jetbrains.com/idea/download/)** or any Java IDE for development
 5. **[Git](https://git-scm.com/downloads)** for version control
+6. Clone Repository
+7. Set up Spring Boot Project
+8. Project demo video
 
 ## Getting Started
 
@@ -94,6 +97,11 @@ spring.datasource.password=your-password
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 ```
+### 8. A Demo link of the web
+You can view a demonstration of the project by following the link below:
+
+[Watch Demo Video](https://drive.google.com/file/d/1lII--0cHRhpGITL3hF_fs5TLKz7S46sJ/view?usp=sharing)
+
 ### Enjoy Using the Web!
 
 I hope you enjoy using the **Automotive Task Management System**.This is my first Spring Project and i create my own this is my own work so feel free to tell me does the instruction good or not if you have any questions or run into any issues, feel free to reach out via email at:
