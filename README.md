@@ -11,6 +11,8 @@ Before you begin, make sure you have the following software installed:
 3. **[MySQL](https://dev.mysql.com/downloads/)** or another relational database (PostgreSQL, etc.)
 4. **[IntelliJ IDEA](https://www.jetbrains.com/idea/download/)** or any Java IDE for development
 5. **[Git](https://git-scm.com/downloads)** for version control
+6. Clone Repository
+7. Set up Spring Boot Project
 
 ## Getting Started
 
