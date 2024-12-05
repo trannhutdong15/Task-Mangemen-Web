@@ -2,6 +2,28 @@
 
 This is a task management system for an automotive factory, developed with **Spring Boot** for the backend and **HTML/CSS/JS** for the frontend. The system supports three roles: **Admin**, **Staff**, and **Team Leader**.
 
+## Screenshots
+### Admin Role
+<p align="center">
+  <img src="assets/admin_dashboard.png" alt="Admin Dashboard" width="50%">
+  <img src="assets/admin_users.png" alt="Admin Users" width="50%">
+  <img src="assets/admin_pendingrequest.png" alt="Admin Pending Requests" width="50%">
+</p>
+
+### Team Leader Role
+<p align="center">
+  <img src="assets/teamleader_dashboard.png" alt="Team Leader Dashboard" width="40%">
+  <img src="assets/teamleader_tasksection.png" alt="Team Leader Tasks" width="40%">
+  <img src="assets/members_section.png" alt="Team Members" width="40%">
+</p>
+
+### User Role
+<p align="center">
+  <img src="assets/User_dashboard.png" alt="User Dashboard" width="40%">
+  <img src="assets/User_Task.png" alt="User Tasks" width="40%">
+  <img src="assets/profile_section.png" alt="User Profile" width="40%">
+</p>
+
 ## Prerequisites
 
 Before you begin, make sure you have the following software installed:
