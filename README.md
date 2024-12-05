@@ -13,6 +13,7 @@ Before you begin, make sure you have the following software installed:
 5. **[Git](https://git-scm.com/downloads)** for version control
 6. Clone Repository
 7. Set up Spring Boot Project
+8. Project demo video
 
 ## Getting Started
 
